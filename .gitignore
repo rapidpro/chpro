@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Data
+*.sql
+
+# Notes
+docs/initial_notes.md
