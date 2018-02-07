@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     container_name: chpro-db
+     environment:
+       MYSQL_ROOT_PASSWORD: supersecret
+       MYSQL_DATABASE: superset
+       MYSQL_USER: superset
+       MYSQL_PASSWORD: superset
+   chpro:
+     depends_on:
+       - db
+     build: .
+     image: chpro:latest
+     ports:
+       - "9090:9090"
+     restart: always
+     container_name: chpro-app
+volumes:
+    db_data:

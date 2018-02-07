@@ -19,6 +19,9 @@ RUN set -ex && pipenv install --deploy --system
 # -- Install Application into container:
 ADD . /app
 
+# -- Make sure the superset configuration will be discoverable
+ENV PYTHONPATH $PYTHONPATH:/app
+
 EXPOSE 9090
 
 ENTRYPOINT ["uwsgi"]
