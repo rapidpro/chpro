@@ -17,7 +17,9 @@ services:
    chpro:
      depends_on:
        - db
-     build: .
+     build:
+      context: .
+      dockerfile: ./ops/containers/app/Dockerfile
      image: chpro:latest
      restart: always
      ports:

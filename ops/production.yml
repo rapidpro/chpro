@@ -20,11 +20,9 @@ services:
    chpro:
      depends_on:
        - db
-     build: .
      image: chpro:latest
      ports:
        - "9090:9090"
-     restart: always
      secrets:
        - MYSQL_ROOT_PASSWORD
        - MYSQL_PASSWORD
