@@ -29,6 +29,7 @@ services:
        - MYSQL_ROOT_PASSWORD
        - MYSQL_PASSWORD
      deploy:
+       replicas: 3
        restart_policy:
          condition: on-failure
 
