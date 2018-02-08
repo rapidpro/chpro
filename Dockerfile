@@ -1,6 +1,8 @@
 FROM python:3.6.4
 
-RUN set -ex && apt-get -q update && apt-get install libsasl2-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN set -ex && apt-get -q update && apt-get install -y \
+    libsasl2-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV LANG C.UTF-8
 

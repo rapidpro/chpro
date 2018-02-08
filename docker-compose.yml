@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services:
    db:
@@ -8,10 +8,14 @@ services:
      restart: always
      container_name: chpro-db
      environment:
-       MYSQL_ROOT_PASSWORD: supersecret
        MYSQL_DATABASE: superset
        MYSQL_USER: superset
-       MYSQL_PASSWORD: superset
+     secrets:
+       - CHPRO_MYSQL_ROOT_PASSWORD
+       - CHPRO_MYSQL_PASSWORD
+     deploy:
+       restart_policy:
+         condition: on-failure
    chpro:
      depends_on:
        - db
@@ -21,5 +25,18 @@ services:
        - "9090:9090"
      restart: always
      container_name: chpro-app
+     secrets:
+       - CHPRO_MYSQL_ROOT_PASSWORD
+       - CHPRO_MYSQL_PASSWORD
+     deploy:
+       restart_policy:
+         condition: on-failure
+
 volumes:
     db_data:
+
+secrets:
+  CHPRO_MYSQL_ROOT_PASSWORD:
+    external: true
+  CHPRO_MYSQL_PASSWORD:
+    external: true
