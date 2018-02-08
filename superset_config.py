@@ -9,9 +9,9 @@ def get_secret(secret_name):
         return None
 
 
-CHPRO_MYSQL_PASSWORD = get_secret('CHPRO_MYSQL_PASSWORD')
+MYSQL_PASSWORD = get_secret('MYSQL_PASSWORD')
 
-SQLALCHEMY_DATABASE_URI = f'mysql://superset:{CHPRO_MYSQL_PASSWORD}@db/superset'
+SQLALCHEMY_DATABASE_URI = f'mysql://superset:{MYSQL_PASSWORD}@db/superset'
 
 MAPBOX_API_KEY = 'pk.eyJ1Ijoibmljb2xhc2xhcmEiLCJhIjoiY2pkMXJ1Z2Y5MGNrazMzbG9kZWMyNXN2dSJ9.DRkSouvQhfYPbCWChW6Q-g'
 

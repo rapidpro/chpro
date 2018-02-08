@@ -6,24 +6,37 @@ services:
      volumes:
        - db_data:/var/lib/mysql
      restart: always
-     container_name: chpro-db
      environment:
        MYSQL_DATABASE: superset
        MYSQL_USER: superset
        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
        MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
-     volumes:  # Manually mounting the secrets
-       - ./secrets:/run/secrets
+     secrets:
+       - MYSQL_ROOT_PASSWORD
+       - MYSQL_PASSWORD
+     deploy:
+       restart_policy:
+         condition: on-failure
    chpro:
      depends_on:
        - db
      build: .
      image: chpro:latest
-     restart: always
      ports:
        - "9090:9090"
-     container_name: chpro-app
-     volumes:  # Manually mounting the secrets
-       - ./secrets:/run/secrets
+     restart: always
+     secrets:
+       - MYSQL_ROOT_PASSWORD
+       - MYSQL_PASSWORD
+     deploy:
+       restart_policy:
+         condition: on-failure
+
 volumes:
     db_data:
+
+secrets:
+  MYSQL_ROOT_PASSWORD:
+    external: true
+  MYSQL_PASSWORD:
+    external: true

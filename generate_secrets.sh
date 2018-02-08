@@ -2,20 +2,16 @@
 
 read_password () {
     read -s CHPRO_$1
-    echo
+    secret_varname=CHPRO_$1
 
-    echo "$1"
-    secret_name=CHPRO_$1
-    echo "${!secret_name}"
-
-    if [ -z "${!secret_name}" ]; then
+    if [ -z "${!secret_varname}" ]; then
       echo "Password cannot be left empty. Exiting."
       exit 1
     else
       { # try
       echo "Storing password..."
       echo -n "docker secret id: "
-      echo "${!secret_name}" | docker secret create ${secret_name} -
+      echo "${!secret_varname}" | docker secret create $1 -
       } || { # catch
       echo "Secret already exists. Edit it manually."
       exit 1
