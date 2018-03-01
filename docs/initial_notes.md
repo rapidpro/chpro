@@ -51,7 +51,7 @@ ToDo: Should we make this into a script?
 
 ## Build the app
 
-`docker build -t chpro .`
+`docker build -t chpro -f ops/containers/app/Dockerfile .`
 
 ## Initialize the swarm
 
@@ -78,7 +78,5 @@ If I follow through with the reorganization, we'll need to run:
 `docker-compose -f ./ops/docker-compose.yml --project-directory . up`
 
 and
-
-`docker build -t chpro -f ops/containers/app/Dockerfile .`
 
 `docker stack deploy -c ops/production.yml production`
