@@ -17,6 +17,7 @@ services:
      deploy:
        restart_policy:
          condition: on-failure
+
    chpro:
      depends_on:
        - db

@@ -3,8 +3,6 @@ version: '3.4'
 services:
    db:
      image: mysql:5.7
-     volumes:
-       - db_data:/var/lib/mysql
      restart: always
      container_name: chpro-db
      environment:
@@ -12,8 +10,10 @@ services:
        MYSQL_USER: superset
        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
        MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
-     volumes:  # Manually mounting the secrets
-       - ./secrets:/run/secrets
+     volumes:
+       - db_data:/var/lib/mysql
+       - ./ops/secrets:/run/secrets  # Manually mounting the secrets
+
    chpro:
      depends_on:
        - db
@@ -25,7 +25,8 @@ services:
      ports:
        - "9090:9090"
      container_name: chpro-app
-     volumes:  # Manually mounting the secrets
-       - ./secrets:/run/secrets
+     volumes:
+       - ./ops/secrets:/run/secrets  # Manually mounting the secrets
+
 volumes:
     db_data:

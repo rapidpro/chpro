@@ -102,3 +102,4 @@ ENV/
 
 # Data
 *.sql
+ops/secrets

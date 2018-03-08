@@ -23,11 +23,17 @@
 
 ## Secrets
 
-The sample secrets will be available under `./ops/secrets`
+The sample secrets need to be available under `./ops/secrets`.
+
+You need to create these secrets, but a set of sample secrets is
+provided so you can use them in development mode. To use this run:
+
+`cp -R ./ops/secrets.sample ./ops/secrets`
+
 
 ## Running
 
-`docker-compose up`
+`docker-compose -f ./ops/docker-compose.yml --project-directory . up`
 
 ## First run
 
@@ -39,9 +45,9 @@ The first time the application is run, we must initialize the db:
 
 `docker exec -it chpro-app superset init`
 
-ToDo: Should we make this into a script?
-
 ## Loading a Database form a MySQL dump
+
+
 
 # Installing and running with Docker Swarm locally (Production)
 
