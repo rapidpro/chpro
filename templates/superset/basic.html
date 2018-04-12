@@ -19,6 +19,8 @@
       {% if entry %}
         <link rel="stylesheet" type="text/css" href="{{ js_manifest(entry + '.css') }}" />
       {% endif %}
+
+      <link rel="stylesheet" type="text/css" src="/static/css/rph.css" />
     {% endblock %}
     {% block head_js %}
       <script src="{{ js_manifest('common.js') }}"></script>
