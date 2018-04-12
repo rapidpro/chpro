@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Titillium+Web:400,600,700');
+
+:root {
+  --color-pink: #D44673;
+}
+
+* {
+  font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+/* HEADER */
+
+.navbar-header {
+  margin-right: 40px !important;
+  height: 80px;
+}
+
+.navbar-collapse {
+  padding-top: 26px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li.active > a {
+  border-bottom-color: var(--color-pink);
+}
