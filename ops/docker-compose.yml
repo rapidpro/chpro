@@ -27,6 +27,6 @@ services:
      container_name: chpro-app
      volumes:
        - ./ops/secrets:/run/secrets  # Manually mounting the secrets
-
+       - .:/app  # Manually mounting the app files. This overrides the container.
 volumes:
     db_data:

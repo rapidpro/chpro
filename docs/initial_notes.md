@@ -47,7 +47,9 @@ The first time the application is run, we must initialize the db:
 
 ## Loading a Database form a MySQL dump
 
+You can access the db via:
 
+`docker exec -it chpro-db bash -c 'mysql --user=root --password="$(cat /run/secrets/MYSQL_ROOT_PASSWORD)"'`
 
 # Installing and running with Docker Swarm locally (Production)
 
