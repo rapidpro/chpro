@@ -103,3 +103,6 @@ ENV/
 # Data
 *.sql
 ops/secrets
+
+# Operating System
+.DS_Store

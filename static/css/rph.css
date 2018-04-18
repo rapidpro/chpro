@@ -11,7 +11,7 @@
 /* HEADER */
 
 .navbar-header {
-  margin-right: 40px !important;
+  margin-right: 40px !important; /* XXX */
   height: 80px;
 }
 
@@ -25,8 +25,17 @@
   border-bottom-color: var(--color-pink);
 }
 
+.navbar-nav .caret,
+.panel-title .caret {
+  margin-top: -30px !important; /* XXX */
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #000;
+}
+
 /* BUTTONS */
 .btn-primary {
-  background: var(--color-pink);
+  background-color: var(--color-pink);
   border-color: var(--color-pink);
 }
