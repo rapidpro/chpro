@@ -24,3 +24,9 @@
 .navbar-inverse .navbar-nav > li.active > a {
   border-bottom-color: var(--color-pink);
 }
+
+/* BUTTONS */
+.btn-primary {
+  background: var(--color-pink);
+  border-color: var(--color-pink);
+}
