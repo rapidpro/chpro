@@ -11,7 +11,7 @@
 /* HEADER */
 
 .navbar-header {
-  margin-right: 40px !important; /* XXX */
+  /* margin-right: 40px !important; */ /* XXX */
   height: 80px;
 }
 
@@ -34,8 +34,30 @@
   background-color: #000;
 }
 
+.navbar-header .navbar-toggle {
+  margin-top: 28px;
+}
+
+.navbar-header .navbar-collapse {
+  padding-top: 0;
+}
+
+/* Primary Breakpoint */
+@media (min-width: 768px) {
+
+}
+
 /* BUTTONS */
 .btn-primary {
   background-color: var(--color-pink);
   border-color: var(--color-pink);
+}
+
+/* VARIOUS COMPONENTS */
+.reactable-header-sortable::before {
+  top: 7px;
+}
+
+.list-add-action .btn.btn-sm {
+  box-shadow: none;
 }
