@@ -147,8 +147,16 @@ body .panel {
   box-shadow: none;
 }
 
-body .panel-primary .panel-heading {
+body .panel-primary .panel-heading,
+.chart-header {
   background-color: var(--color-beige);
+}
+
+div.widget .chart-header {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 4px 10px 2px;
+  border-bottom: none;
 }
 
 body .panel-primary .panel-title {
@@ -207,8 +215,17 @@ body .list-add-action .btn.btn-sm {
 
 /* DASHBOARD */
 .editable-title,
-.editable-title button {
+.editable-title button,
+.editable-title [type="button"] {
   font-family: var(--header-font);
+}
+
+.editable-title input {
+  padding-left: 0;
+}
+
+body .editable-title input[type="button"] {
+  padding-left: 0;
 }
 
 .dataTables_scroll {
