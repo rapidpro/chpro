@@ -29,6 +29,19 @@ body a {
   color: var(--color-navy);
 }
 
+td a {
+  text-decoration: underline;
+}
+
+td a:hover {
+  text-decoration: none;
+}
+
+/* FORMS */
+body .help-block {
+  color: #494949;
+}
+
 /* HEADER */
 
 .navbar-header {
@@ -107,9 +120,26 @@ body .dropdown-menu > li > a {
 }
 
 /* BUTTONS */
-.btn-primary {
+a.btn-primary,
+input.btn-primary,
+button.btn-primary {
   background-color: var(--color-pink);
   border-color: var(--color-pink);
+}
+
+a.btn-primary:hover,
+input.btn-primary:hover,
+button.btn-primary:hover {
+  background: #C22D5D;
+  color: #F3F3F3;
+}
+
+button.close {
+  color: var(--color-navy);
+}
+
+button.close:hover {
+  color: #000;
 }
 
 /* PANELS */
@@ -117,8 +147,18 @@ body .panel {
   box-shadow: none;
 }
 
-.panel-title {
+body .panel-primary .panel-heading {
+  background-color: var(--color-beige);
+}
+
+body .panel-primary .panel-title {
+  border-bottom: none;
+}
+
+body .panel-title {
+  margin-bottom: 10px;
   font-family: var(--header-font);
+  font-size: 18px;
   font-weight: var(--weight-bold);
 }
 
@@ -163,6 +203,17 @@ body .list-add-action .btn.btn-sm {
 /* LISTS w/FILTER */
 .list-search-container .btn.dropdown-toggle {
   /* TODO: Alignment is off if you add padding */
+}
+
+/* DASHBOARD */
+.editable-title,
+.editable-title button {
+  font-family: var(--header-font);
+}
+
+.dataTables_scroll {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 
