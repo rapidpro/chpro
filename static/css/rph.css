@@ -2,10 +2,31 @@
 
 :root {
   --color-pink: #D44673;
+  --color-navy: #324955;
+  --color-beige: #DCE4D7;
+  --color-beige-dark: #9FB9B4;
+  --color-yellow: #EAF0E6;
+
+
+  --header-font: 'Titillium Web', Helvetica, sans-serif;
+  --weight-bold: 700;
 }
 
-* {
+body {
   font-family: 'Open Sans', Helvetica, sans-serif;
+  color: var(--navy);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--header-font);
+  font-weight: var(--weight-bold);
+}
+
+body a {
+  color: var(--color-navy);
 }
 
 /* HEADER */
@@ -19,15 +40,58 @@
   padding-top: 26px;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus,
-.navbar-inverse .navbar-nav > li.active > a {
+.navbar-nav a {
+  font-family: var(--header-font);
+}
+
+.navbar-nav > li > a {
+  display: flex;
+  align-items: center;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+}
+
+/* Fixes alignment of flag. TODO: Double check other flags */
+.navbar-nav .f16 .flag {
+  vertical-align: middle;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+body .dropdown-menu > li > a {
+  color: #000;
+}
+
+/* TODO: Too much work to override */
+body .navbar-inverse .navbar-nav > li > a:hover,
+body .navbar-inverse .navbar-nav > li > a:focus,
+body .navbar-inverse .navbar-nav > li.active > a {
   border-bottom-color: var(--color-pink);
+}
+
+body .navbar-inverse .navbar-nav > .open > a,
+body .navbar-inverse .navbar-nav > .open > a:hover,
+body .navbar-inverse .navbar-nav > .open > a:focus {
+  background: var(--color-yellow);
+}
+
+body .dropdown-menu > li > a:hover,
+body .dropdown-menu > li > a:focus {
+  background: var(--color-pink);
+}
+
+body .dropdown-menu > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .navbar-nav .caret,
 .panel-title .caret {
   margin-top: -30px !important; /* XXX */
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background: var(--color-yellow);
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
@@ -42,15 +106,44 @@
   padding-top: 0;
 }
 
-/* Primary Breakpoint */
-@media (min-width: 768px) {
-
-}
-
 /* BUTTONS */
 .btn-primary {
   background-color: var(--color-pink);
   border-color: var(--color-pink);
+}
+
+/* PANELS */
+body .panel {
+  box-shadow: none;
+}
+
+.panel-title {
+  font-family: var(--header-font);
+  font-weight: var(--weight-bold);
+}
+
+/* TABS */
+.nav-tabs > li > a {
+  border: none;
+  color: var(--color-navy);
+}
+
+.nav-tabs > li > a:hover {
+  background: var(--color-navy);
+  border: none; /* Overkill */
+  color: #FFF;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border-top-color: var(--color-navy);
+  color: var(--color-navy);
+}
+
+/* TABLES */
+body .table-hover > tbody > tr:hover {
+  background: var(--color-yellow);
 }
 
 /* VARIOUS COMPONENTS */
@@ -58,6 +151,22 @@
   top: 7px;
 }
 
-.list-add-action .btn.btn-sm {
+/* TODO: Very specific */
+body .list-add-action .btn.btn-sm {
   box-shadow: none;
+}
+
+.react-gravatar.img-rounded {
+  border-radius: 0 !important; /* Override React inline styles */
+}
+
+/* LISTS w/FILTER */
+.list-search-container .btn.dropdown-toggle {
+  /* TODO: Alignment is off if you add padding */
+}
+
+
+/* Primary Breakpoint */
+@media (min-width: 768px) {
+
 }
