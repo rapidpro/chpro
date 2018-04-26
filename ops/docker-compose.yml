@@ -25,6 +25,8 @@ services:
      ports:
        - "9090:9090"
      container_name: chpro-app
+     stdin_open: true
+     tty: true
      volumes:
        - ./ops/secrets:/run/secrets  # Manually mounting the secrets
        - .:/app  # Manually mounting the app files. This overrides the container.

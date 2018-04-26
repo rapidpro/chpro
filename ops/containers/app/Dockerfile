@@ -13,13 +13,11 @@ RUN set -ex && pip install pip pipenv --upgrade
 RUN set -ex && mkdir /app
 WORKDIR /app
 
-# -- Install dependencies:
-ADD ./Pipfile /app/Pipfile
-ADD ./Pipfile.lock /app/Pipfile.lock
-RUN set -ex && pipenv install --deploy --system
-
 # -- Install Application into container:
 ADD . /app
+
+# -- Install dependencies:
+RUN set -ex && pipenv install --deploy --system
 
 # -- Make sure the superset configuration will be discoverable
 ENV PYTHONPATH $PYTHONPATH:/app

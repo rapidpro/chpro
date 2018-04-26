@@ -15,3 +15,8 @@ MAPBOX_API_KEY = 'pk.eyJ1Ijoibmljb2xhc2xhcmEiLCJhIjoiY2pkMXJ1Z2Y5MGNrazMzbG9kZWM
 
 # Change this to setup a new logo
 # APP_ICON = '/static/assets/images/superset-logo@2x.png'
+
+# Registering blueprints here won't work because of import order
+# Instead, we register them where we define them and make sure they are loaded
+# at app initialization
+BLUEPRINTS = []
