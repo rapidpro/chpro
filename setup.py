@@ -11,5 +11,8 @@ setup(
     author_email='nicolas@lincolnloop.com',
     url='https://github.com/rapidpro/chpro/',
     packages=find_packages(),
+    scripts=[
+        'chpro/bin/chpro'
+    ],
     include_package_data=True,
 )
