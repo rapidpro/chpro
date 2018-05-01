@@ -15,7 +15,6 @@ ipdb = "*"
 mysqlclient = "*"
 uwsgi = "*"
 superset = "*"
-chpro = {path = ".", editable = true}
 rapidpro-python = "*"
 
 

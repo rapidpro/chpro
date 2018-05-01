@@ -1,5 +1,7 @@
 import os
 
+import sqlalchemy
+
 from flask import Blueprint
 
 from flask import flash
@@ -10,6 +12,7 @@ from superset import app, appbuilder, utils
 from werkzeug.utils import secure_filename, redirect
 
 from chpro.forms.databases import LoadSQLForm
+from superset_config import SQLALCHEMY_DATABASE_URI
 
 config = app.config
 
@@ -35,14 +38,20 @@ class LoadSQL(SimpleFormView):
         pass
 
     def form_post(self, form):
+        # ToDo: Check permissions
         sql_file = form.sql_file.data
         form.sql_file.data.filename = secure_filename(form.sql_file.data.filename)
-        csv_filename = form.csv_file.data.filename
-        path = os.path.join(config['UPLOAD_FOLDER'], csv_filename)
+        sql_filename = form.sql_file.data.filename
+        path = os.path.join(config['UPLOAD_FOLDER'], sql_filename)
         try:
-            utils.ensure_path_exists(config['UPLOAD_FOLDER'])
+            #utils.ensure_path_exists(config['UPLOAD_FOLDER'])
             sql_file.save(path)
-            # ToDo: Create the new database and load the sql file here.
+            engine = sqlalchemy.create_engine(SQLALCHEMY_DATABASE_URI)
+            conn = engine.connect()
+            conn.execute("commit")
+            conn.execute("create database :db_name", db_name=form.db_name)
+            # ToDo: Start a subprocess here to load the DB.
+            conn.close()
             # ToDo: Consider doing this in the backgrpound.
         except Exception as e:
             try:
@@ -60,7 +69,7 @@ class LoadSQL(SimpleFormView):
         # Go back to welcome page / splash screen
         db_name = 'DB NAme'
         message = _('SQL file "{0}" uploaded to table "{1}" in '
-                    'database "{2}"'.format(csv_filename,
+                    'database "{2}"'.format(sql_filename,
                                             form.name.data,
                                             db_name))
         flash(message, 'info')

@@ -1,10 +1,10 @@
 **
+!Pipfile
 !Pipfile.lock
 !wsgi.py
 !uwsgi.ini
-!chpro
-!static
-!templates
+!chpro/**
+!static/**
+!templates/**
 !setup.py
 !superset_config.py
-!templates

@@ -8,8 +8,10 @@ def get_secret(secret_name):
 
 
 MYSQL_PASSWORD = get_secret('MYSQL_PASSWORD')
+MYSQL_ROOT_PASSWORD = get_secret('MYSQL_ROOT_PASSWORD')
 
 SQLALCHEMY_DATABASE_URI = f'mysql://superset:{MYSQL_PASSWORD}@db/superset'
+SQLALCHEMY_ROOT_DATABASE_URI = f'mysql://root:{MYSQL_ROOT_PASSWORD}@db/'
 
 MAPBOX_API_KEY = 'pk.eyJ1Ijoibmljb2xhc2xhcmEiLCJhIjoiY2pkMXJ1Z2Y5MGNrazMzbG9kZWMyNXN2dSJ9.DRkSouvQhfYPbCWChW6Q-g'
 
