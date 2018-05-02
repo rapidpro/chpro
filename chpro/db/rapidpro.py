@@ -21,11 +21,16 @@ metadata = MetaData()
  'values': {}}
  """
 
+contact = Table('rapidpro_contact', metadata,
+                Column('id', types.Integer, primary_key=True),
+
+                )
+
 run = Table('rapidpro_run', metadata,
             Column('id', types.Integer, primary_key=True),
-            Column('created_on', types.Date),
+            Column('created_on', types.DateTime),
             Column('exit_type', types.String(16)),
-            Column('exited_on', types.Date),
-            Column('modified_on', types.Date),
+            Column('exited_on', types.DateTime),
+            Column('modified_on', types.DateTime),
             Column('responded', types.Boolean),
             )
