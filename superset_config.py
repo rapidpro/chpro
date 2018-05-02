@@ -15,6 +15,8 @@ SQLALCHEMY_ROOT_DATABASE_URI = f'mysql://root:{MYSQL_ROOT_PASSWORD}@db/'
 
 MAPBOX_API_KEY = 'pk.eyJ1Ijoibmljb2xhc2xhcmEiLCJhIjoiY2pkMXJ1Z2Y5MGNrazMzbG9kZWMyNXN2dSJ9.DRkSouvQhfYPbCWChW6Q-g'
 
+RAPIDPRO_API_KEY = get_secret('RAPIDPRO_API_KEY')
+
 # Change this to setup a new logo
 # APP_ICON = '/static/assets/images/superset-logo@2x.png'
 
