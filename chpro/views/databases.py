@@ -10,6 +10,7 @@ from flask_babel import lazy_gettext as _
 from six import text_type
 from superset import app, appbuilder, utils
 from werkzeug.utils import secure_filename, redirect
+from sqlalchemy.sql import text
 
 from chpro.forms.databases import LoadSQLForm
 from superset_config import SQLALCHEMY_DATABASE_URI
@@ -38,6 +39,7 @@ class LoadSQL(SimpleFormView):
         pass
 
     def form_post(self, form):
+        # ToDo: Do we really want to do this? This would inherently be insecure.
         # ToDo: Check permissions
         sql_file = form.sql_file.data
         form.sql_file.data.filename = secure_filename(form.sql_file.data.filename)
@@ -49,7 +51,7 @@ class LoadSQL(SimpleFormView):
             engine = sqlalchemy.create_engine(SQLALCHEMY_DATABASE_URI)
             conn = engine.connect()
             conn.execute("commit")
-            conn.execute("create database :db_name", db_name=form.db_name)
+            conn.execute(text("create database :db_name"), db_name=form.db_name.data)
             # ToDo: Start a subprocess here to load the DB.
             conn.close()
             # ToDo: Consider doing this in the backgrpound.
