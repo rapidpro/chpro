@@ -1,8 +1,7 @@
-import sqlalchemy
+import sqlalchemy as sqla
 
 from dateutil import parser
 from flask_script import Manager, Option
-from sqlalchemy import desc
 
 from superset import app, utils
 from superset_config import RAPIDPRO_API_KEY, SQLALCHEMY_DATABASE_URI
@@ -21,8 +20,8 @@ def process_column(table, data, name):
     if not data[name]:
         return
 
-    if (isinstance(table.columns[name].type, sqlalchemy.types.DateTime) or
-        isinstance(table.columns[name].type, sqlalchemy.types.Date)):
+    if (isinstance(table.columns[name].type, sqla.types.DateTime) or
+        isinstance(table.columns[name].type, sqla.types.Date)):
         return parser.parse(data[name])
 
     return data[name]
@@ -41,10 +40,14 @@ class ImportRapidProData(Command):
 
     def run(self, after, before):
         client = TembaClient('rapidpro.io', RAPIDPRO_API_KEY)
-        engine = sqlalchemy.create_engine(SQLALCHEMY_DATABASE_URI)
+        engine = sqla.create_engine(SQLALCHEMY_DATABASE_URI)
+
+        if not engine.dialect.has_table(engine, rapidpro.run.name):
+            rapidpro.run.create(engine)
+
         conn = engine.connect()
 
-        q = sqlalchemy.select([rapidpro.run]).order_by(desc(rapidpro.run.c[self.order_field]))
+        q = sqla.select([rapidpro.run]).order_by(sqla.desc(rapidpro.run.c[self.order_field]))
         latest_run = conn.execute(q).first()
 
         extras = {}
@@ -78,12 +81,8 @@ class ImportRapidProData(Command):
 class LoadInitialData(Command):
     """Load initial chpro data"""
 
-    def create_rapidpro_table(self):
-        engine = sqlalchemy.create_engine(SQLALCHEMY_DATABASE_URI)
-        rapidpro.run.create(engine)
-
     def run(self):
-        self.create_rapidpro_table()
+        pass
 
 manager = Manager(app)
 manager.add_command('import_rapidpro_data', ImportRapidProData())

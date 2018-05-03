@@ -34,3 +34,4 @@ run = Table('rapidpro_run', metadata,
             Column('modified_on', types.DateTime),
             Column('responded', types.Boolean),
             )
+g
