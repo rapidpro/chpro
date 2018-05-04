@@ -61,3 +61,11 @@ Create a copy of the default `Alpha` role.
 1. Select the `Alpha` role in http://localhost:9090/roles/list/ and use the **Copy** command in the **Actions** menu at the bottom of page
 1. In the roles list, find "Alpha copy" and click its edit button
 1. In the `Name` field change it to "Editor", then Save
+
+```
+-- adds SQL Lab permissions
+insert into ab_permission_view_role (permission_view_id, role_id)
+  select apv.id, ar.id from ab_permission_view as apv
+  inner join ab_role as ar on ar.name = "Editor"
+  where apv.id in (select permission_view_id from ab_permission_view_role where role_id = (select id from ab_role where name = "sql_lab"));
+```
