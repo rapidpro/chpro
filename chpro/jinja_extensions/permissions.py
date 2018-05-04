@@ -3,7 +3,10 @@ from superset import app
 
 @app.context_processor
 def chpro_roles():
-    roles = [i.name for i in g.user.roles]
+    try:
+        roles = [i.name for i in g.user.roles]
+    except AttributeError:
+        return {}
     return dict(user=g.user,
                 is_admin='Admin' in roles,
                 is_editor='Editor' in roles,
