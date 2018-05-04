@@ -5,7 +5,7 @@ from superset import app
 def chpro_roles():
     roles = [i.name for i in g.user.roles]
     return dict(user=g.user,
-                is_admin='Chpro Admin' in roles,
-                is_editor='Chpro editor' in roles,
-                is_viewer='Chpro viewer' in roles)
+                is_admin='Admin' in roles,
+                is_editor='Editor' in roles,
+                is_viewer='Viewer' in roles)
 
