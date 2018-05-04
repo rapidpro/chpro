@@ -27,8 +27,9 @@ services:
      secrets:
        - MYSQL_ROOT_PASSWORD
        - MYSQL_PASSWORD
+       - RAPIDPRO_API_KEY
      deploy:
-       replicas: 1
+       replicas: 2
        restart_policy:
          condition: on-failure
 
@@ -39,4 +40,6 @@ secrets:
   MYSQL_ROOT_PASSWORD:
     external: true
   MYSQL_PASSWORD:
+    external: true
+  RAPIDPRO_API_KEY:
     external: true
