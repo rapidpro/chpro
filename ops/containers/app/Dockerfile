@@ -19,7 +19,7 @@ ADD ./Pipfile /app/
 ADD ./Pipfile.lock /app/
 
 # -- Install dependencies:
-RUN set -ex && pipenv install --deploy --system $PIPENV_ARGS
+RUN set -ex && pipenv install --deploy --system --ignore-pipfile $PIPENV_ARGS
 
 # -- Install Application into container:
 ADD . /app
