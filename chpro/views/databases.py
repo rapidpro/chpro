@@ -10,7 +10,6 @@ from flask_babel import lazy_gettext as _
 from six import text_type
 from superset import app, appbuilder, utils
 from werkzeug.utils import secure_filename, redirect
-from sqlalchemy.sql import text
 
 from chpro.forms.databases import LoadSQLForm
 from superset_config import SQLALCHEMY_DATABASE_URI
@@ -18,16 +17,16 @@ from superset_config import SQLALCHEMY_DATABASE_URI
 config = app.config
 
 
-simple_page = Blueprint('simple_page', __name__, template_folder='templates')
-
-
-@simple_page.route('/', defaults={'page': 'index'})
-@simple_page.route('/<page>')
-def show(page):
-    return "Ok"
-
-
-app.register_blueprint(simple_page)
+# simple_page = Blueprint('simple_page', __name__, template_folder='templates')
+#
+#
+# @simple_page.route('/', defaults={'page': 'index'})
+# @simple_page.route('/<page>')
+# def show(page):
+#     return "Ok"
+#
+#
+# app.register_blueprint(simple_page)
 
 
 class LoadSQL(SimpleFormView):
