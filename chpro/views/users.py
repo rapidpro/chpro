@@ -45,4 +45,4 @@ class EditorUserView(UserModelView):
         return widget
 
 
-appbuilder.add_view(EditorUserView, 'EditorUserView')
+appbuilder.add_view(EditorUserView, 'Manage Viewers')
