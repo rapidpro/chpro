@@ -1,19 +1,10 @@
 {% macro menu_item(item) %}
-    <a tabindex="-1" href="{{item.get_url()}}">
-       {% if item.icon %}
-        <i class="fa fa-fw {{item.icon}}"></i>&nbsp;
+  <a tabindex="-1" href="{{item.get_url()}}">
+   {% if item.icon %}
+      <i class="fa fa-fw {{item.icon}}"></i>&nbsp;
     {% endif %}
-    {{_(item.label)}}</a>
+  {{_(item.label)}}</a>
 {% endmacro %}
-
-
-{% if current_user.is_authenticated %}
-{% if is_admin or is_editor or is_viewer %}
-<li>
-    <a tabindex="-1" href="/users/userinfo/">{{ current_user }} ({% if is_admin %}admin{% elif is_editor %}editor{% elif is_viewer %}viewer{% endif %})</a>
-</li>
-{% endif %}
-{% endif %}
 
 {% for item1 in menu.get_list() %}
     {% if item1 | is_menu_visible %}
@@ -45,3 +36,12 @@
     {% endif %}
 {% endfor %}
 
+{#
+{% if current_user.is_authenticated %}
+{% if is_admin or is_editor or is_viewer %}
+<li>
+  <a tabindex="-1" href="/users/userinfo/">{{ current_user }} ({% if is_admin %}admin{% elif is_editor %}editor{% elif is_viewer %}viewer{% endif %})</a>
+</li>
+{% endif %}
+{% endif %}
+#}
