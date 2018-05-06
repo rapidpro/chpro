@@ -107,7 +107,7 @@ body .dropdown-menu > li > a {
   background: var(--color-yellow);
 }
 
-.navbar-inverse .navbar-toggle .icon-bar {
+body .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #000;
 }
 
@@ -231,6 +231,13 @@ body .editable-title input[type="button"] {
 .dataTables_scroll {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+/* SHIMS */
+/* Items to address with dev */
+body .navbar > .container-fluid > .navbar-brand,
+body .navbar .navbar-collapse .navbar-brand {
+  display: none;
 }
 
 
