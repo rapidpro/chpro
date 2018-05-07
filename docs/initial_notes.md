@@ -19,7 +19,7 @@
 
 ## Prerequisites
 
- * Install docker and docker-compose (ubuntu instructions?)
+ * Install [docker](https://docker.com/) and [docker-compose](https://docs.docker.com/compose/install/) (ubuntu instructions?)
 
 ## Secrets
 
