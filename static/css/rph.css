@@ -3,10 +3,12 @@
 :root {
   --color-pink: #D44673;
   --color-navy: #324955;
+  --color-teal: #53BDA6;
   --color-beige: #DCE4D7;
   --color-beige-dark: #9FB9B4;
   --color-yellow: #EAF0E6;
-
+  --color-gray: #818181;
+  --color-gray-light: #C5C5C5;
 
   --header-font: 'Titillium Web', Helvetica, sans-serif;
   --weight-bold: 700;
@@ -69,9 +71,33 @@ body .help-block {
   vertical-align: middle;
 }
 
+/* Dropdown menus */
 .navbar-inverse .navbar-nav > li > a,
 body .dropdown-menu > li > a {
   color: #000;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa,
+body .dropdown-menu > li > a .fa {
+  /* color: var(--color-gray); */
+  opacity: 0.75;
+  font-size: 1.05rem;
+  margin-right: 0.5rem;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa {
+  color: var(--color-pink);
+}
+
+body .dropdown-menu > li > a:hover .fa,
+body .dropdown-menu > li > a:focus .fa {
+  color: white;
+}
+
+.dropdown-menu {
+  border-color: var(--color-gray-light) !important;
 }
 
 /* TODO: Too much work to override */
@@ -97,10 +123,10 @@ body .dropdown-menu > li > a {
   padding-bottom: 8px;
 }
 
-.navbar-nav .caret,
+/* .navbar-nav .caret,
 .panel-title .caret {
-  margin-top: -30px !important; /* XXX */
-}
+  margin-top: -24px !important;
+} This breaks on certain pages/isnt accurate on different pages. Address. */
 
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
@@ -161,16 +187,28 @@ div.widget .chart-header {
 
 body .panel-primary .panel-title {
   border-bottom: none;
-}
-
-body .panel-title {
+  color: var(--color-navy);
   margin-bottom: 10px;
   font-family: var(--header-font);
   font-size: 18px;
   font-weight: var(--weight-bold);
 }
 
+body .panel-body h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+body .panel .table-responsive {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* TABS */
+.nav-tabs > li:not(.active) > a {
+  border-radius: 3px;
+}
+
 .nav-tabs > li > a {
   border: none;
   color: var(--color-navy);
@@ -189,14 +227,66 @@ body .panel-title {
   color: var(--color-navy);
 }
 
+
+.nav-tabs > li > a .fa {
+  margin-right: 0.5rem;
+  font-size: 1.05rem;
+  margin-right: 0.5rem;
+}
+
+
 /* TABLES */
-body .table-hover > tbody > tr:hover {
+.table-hover > tbody > tr:hover {
   background: var(--color-yellow);
+}
+
+table > thead > tr > td.success,
+.table > tbody > tr > td.success,
+.table > tfoot > tr > td.success,
+.table > thead > tr > th.success,
+.table > tbody > tr > th.success,
+.table > tfoot > tr > th.success,
+.table > thead > tr.success > td,
+.table > tbody > tr.success > td,
+.table > tfoot > tr.success > td,
+.table > thead > tr.success > th,
+.table > tbody > tr.success > th,
+.table > tfoot > tr.success > th {
+  background-color: var(--color-beige);
+  color: var(--color-navy);
+}
+
+table > thead > tr > td.success a,
+.table > tbody > tr > td.success a,
+.table > tfoot > tr > td.success a,
+.table > thead > tr > th.success a,
+.table > tbody > tr > th.success a,
+.table > tfoot > tr > th.success a,
+.table > thead > tr.success > td a,
+.table > tbody > tr.success > td a,
+.table > tfoot > tr.success > td a,
+.table > thead > tr.success > th a,
+.table > tbody > tr.success > th a,
+.table > tfoot > tr.success > th a {
+  color: var(--color-navy);
+}
+
+.table-hover > tbody > tr > td.success:hover,
+.table-hover > tbody > tr > th.success:hover,
+.table-hover > tbody > tr.success:hover > td,
+.table-hover > tbody > tr:hover > .success,
+.table-hover > tbody > tr.success:hover > th {
+  background-color: var(--color-beige-dark);
+}
+
+.table .success {
+  color: var(--color-navy);
 }
 
 /* VARIOUS COMPONENTS */
 .reactable-header-sortable::before {
-  top: 7px;
+  top: 12px;
+  color: var(--color-teal);
 }
 
 /* TODO: Very specific */
@@ -210,8 +300,26 @@ body .list-add-action .btn.btn-sm {
 
 /* LISTS w/FILTER */
 .list-search-container .btn.dropdown-toggle {
-  /* TODO: Alignment is off if you add padding */
+  padding: 8px 18px;
+  top: -58px;
+  right: 40px;
 }
+
+.list-container .list-add-action {
+  top: -44px !important;
+  right: 13px !important;
+  display: block;
+}
+
+.list-add-action .btn.btn-sm {
+  padding: 10px !important;
+  height: 36px;
+  width: 36px;
+  line-height: 1.5 !important;
+  font-size: 1.25rem !important;
+  border: 0;
+}
+
 
 /* DASHBOARD */
 .editable-title,
