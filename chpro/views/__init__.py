@@ -4,4 +4,5 @@ def load():
     This should be called when initializing the application.
     """
     import chpro.views.databases
+    import chpro.views.users
 
