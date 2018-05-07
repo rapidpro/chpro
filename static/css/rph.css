@@ -16,7 +16,8 @@
 
 body {
   font-family: 'Open Sans', Helvetica, sans-serif;
-  color: var(--navy);
+  color: var(--color-navy);
+  background-color: var(--color-yellow);
 }
 
 h1,
@@ -45,7 +46,6 @@ body .help-block {
 }
 
 /* HEADER */
-
 .navbar-header {
   /* margin-right: 40px !important; */ /* XXX */
   height: 80px;
@@ -88,7 +88,7 @@ body .dropdown-menu > li > a .fa {
 }
 
 .navbar-inverse .navbar-nav > li > a .fa {
-  color: var(--color-pink);
+  color: var(--color-navy);
 }
 
 body .dropdown-menu > li > a:hover .fa,
@@ -150,7 +150,7 @@ a.btn-primary,
 input.btn-primary,
 button.btn-primary {
   background-color: var(--color-pink);
-  border-color: var(--color-pink);
+  border: none;
 }
 
 a.btn-primary:hover,
@@ -168,6 +168,76 @@ button.close:hover {
   color: #000;
 }
 
+
+/* TABS */
+.tab-pane {
+  border: 1px solid var(--color-beige);
+  border-top: 0;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid var(--color-beige);
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border: 1px solid var(--color-beige);
+  border-bottom-color: transparent;
+  border-top: 2px solid var(--color-navy);
+  color: var(--color-navy);
+}
+
+.nav-tabs > li:not(.active) > a {
+  border-radius: 3px;
+}
+
+.nav-tabs > li > a {
+  border: none;
+  color: var(--color-navy);
+}
+
+.nav-tabs > li > a:hover {
+  background: var(--color-navy);
+  border: none; /* Overkill */
+  color: #FFF;
+}
+
+/* VARIOUS COMPONENTS */
+.reactable-header-sortable::before {
+  top: 12px;
+  color: var(--color-teal);
+}
+
+/* TODO: Very specific */
+body .list-add-action .btn.btn-sm {
+  box-shadow: none;
+}
+
+.react-gravatar.img-rounded {
+  border-radius: 0 !important; /* Override React inline styles */
+}
+
+/* DASHBOARD */
+.editable-title,
+.editable-title button,
+.editable-title [type="button"] {
+  font-family: var(--header-font);
+}
+
+.editable-title input {
+  padding-left: 0;
+}
+
+body .editable-title input[type="button"] {
+  padding-left: 0;
+}
+
+.dataTables_scroll {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 /* PANELS */
 body .panel {
   box-shadow: none;
@@ -175,7 +245,9 @@ body .panel {
 
 body .panel-primary .panel-heading,
 .chart-header {
-  background-color: var(--color-beige);
+  background-color: var(--color-yellow);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 div.widget .chart-header {
@@ -199,43 +271,22 @@ body .panel-body h3 {
   margin-bottom: 1rem;
 }
 
-body .panel .table-responsive {
+.panel .table-responsive {
   padding-left: 0;
   padding-right: 0;
 }
 
-/* TABS */
-.nav-tabs > li:not(.active) > a {
-  border-radius: 3px;
-}
-
-.nav-tabs > li > a {
-  border: none;
-  color: var(--color-navy);
-}
-
-.nav-tabs > li > a:hover {
-  background: var(--color-navy);
-  border: none; /* Overkill */
-  color: #FFF;
-}
-
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
-  border-top-color: var(--color-navy);
-  color: var(--color-navy);
-}
-
-
-.nav-tabs > li > a .fa {
-  margin-right: 0.5rem;
-  font-size: 1.05rem;
-  margin-right: 0.5rem;
-}
-
 
 /* TABLES */
+/* Updates the layout table colors/borders */
+.table {
+  margin-bottom: 0;
+}
+
+.table .success {
+  color: var(--color-navy);
+}
+
 .table-hover > tbody > tr:hover {
   background: var(--color-yellow);
 }
@@ -279,67 +330,98 @@ table > thead > tr > td.success a,
   background-color: var(--color-beige-dark);
 }
 
-.table .success {
-  color: var(--color-navy);
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td,
+.panel-body.list-container {
+  border: 1px solid var(--color-beige);
 }
 
-/* VARIOUS COMPONENTS */
-.reactable-header-sortable::before {
-  top: 12px;
-  color: var(--color-teal);
-}
-
-/* TODO: Very specific */
-body .list-add-action .btn.btn-sm {
+.table-responsive + .well {
+  background: var(--color-yellow);
+  padding-left: 0;
+  padding-right: 0;
+  border: none;
   box-shadow: none;
+  border-radius: 0;
 }
 
-.react-gravatar.img-rounded {
-  border-radius: 0 !important; /* Override React inline styles */
+.table-responsive + .well > button[type=submit] {
+  float: right;
 }
+
+.table thead .fa {
+  color: var(--color-teal); /* For consistency */
+  position: relative;
+  top: 2px;
+}
+
 
 /* LISTS w/FILTER */
+.list-search-container {
+  position: absolute;
+  right: 110px;
+  top: -38px;
+}
+
 .list-search-container .btn.dropdown-toggle {
-  padding: 8px 18px;
-  top: -58px;
-  right: 40px;
+  background-color: var(--color-yellow);
+  position: relative;
+  color: var(--color-navy);
+  top: inherit;
+  right: inherit;
 }
 
 .list-container .list-add-action {
-  top: -44px !important;
-  right: 13px !important;
+  top: -38px !important;
+  right: 0 !important;
   display: block;
 }
 
 .list-add-action .btn.btn-sm {
-  padding: 10px !important;
-  height: 36px;
-  width: 36px;
-  line-height: 1.5 !important;
-  font-size: 1.25rem !important;
   border: 0;
+  border-radius: 3px;
+}
+
+.list-add-action .btn.btn-sm:after {
+  content: attr(data-original-title);
+}
+
+.list-container .form-actions-container {
+  display: block;
+  width: 50%;
+  padding: 0;
+  float: left;
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+
+.list-container .pagination-container {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
 }
 
 
-/* DASHBOARD */
-.editable-title,
-.editable-title button,
-.editable-title [type="button"] {
-  font-family: var(--header-font);
+/* Fancy icons */
+.nav-tabs > li > a .fa,
+.panel-body p > .fa,
+.list-add-action .btn.btn-sm .fa,
+.table-responsive + .well > button[type=submit] .fa {
+  opacity: 0.75;
+  font-size: 1.05rem;
+  margin-right: 0.5rem;
 }
 
-.editable-title input {
-  padding-left: 0;
+.table-responsive + .well > button[type=submit] .fa { /* icons on the right */
+  margin-left: 0.5rem;
+  margin-right: 0;
 }
 
-body .editable-title input[type="button"] {
-  padding-left: 0;
-}
-
-.dataTables_scroll {
-  padding-left: 10px;
-  padding-right: 10px;
-}
 
 /* SHIMS */
 /* Items to address with dev */
@@ -348,6 +430,9 @@ body .navbar .navbar-collapse .navbar-brand {
   display: none;
 }
 
+.panel-heading + .tab-pane { /* Tab pane even though there's no tab - can we edit this markup? */
+  border: 0;
+}
 
 /* Primary Breakpoint */
 @media (min-width: 768px) {
