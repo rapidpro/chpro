@@ -1,0 +1,483 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Titillium+Web:400,600,700');
+
+:root {
+  --color-pink: #D44673;
+  --color-navy: #324955;
+  --color-teal: #53BDA6;
+  --color-beige: #DCE4D7;
+  --color-beige-dark: #9FB9B4;
+  --color-yellow: #EAF0E6;
+  --color-gray: #818181;
+  --color-gray-light: #C5C5C5;
+
+  --header-font: 'Titillium Web', Helvetica, sans-serif;
+  --weight-bold: 700;
+}
+
+body {
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  color: var(--color-navy);
+  background-color: var(--color-yellow);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--header-font);
+  font-weight: var(--weight-bold);
+}
+
+body a {
+  color: var(--color-navy);
+}
+
+td a {
+  text-decoration: underline;
+}
+
+td a:hover {
+  text-decoration: none;
+}
+
+/* FORMS */
+body .help-block {
+  color: #494949;
+}
+
+/* HEADER */
+.navbar-header {
+  /* margin-right: 40px !important; */ /* XXX */
+  height: 80px;
+}
+
+.navbar-collapse {
+  padding-top: 26px;
+}
+
+.navbar-nav a {
+  font-family: var(--header-font);
+}
+
+.navbar-nav > li > a {
+  display: flex;
+  align-items: center;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+}
+
+/* Fixes alignment of flag. TODO: Double check other flags */
+.navbar-nav .f16 .flag {
+  vertical-align: middle;
+}
+
+/* Dropdown menus */
+.navbar-inverse .navbar-nav > li > a,
+body .dropdown-menu > li > a {
+  color: #000;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa,
+body .dropdown-menu > li > a .fa {
+  /* color: var(--color-gray); */
+  opacity: 0.75;
+  font-size: 1.05rem;
+  margin-right: 0.5rem;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa {
+  color: var(--color-navy);
+}
+
+body .dropdown-menu > li > a:hover .fa,
+body .dropdown-menu > li > a:focus .fa {
+  color: white;
+}
+
+.dropdown-menu {
+  border-color: var(--color-gray-light) !important;
+}
+
+/* TODO: Too much work to override */
+body .navbar-inverse .navbar-nav > li > a:hover,
+body .navbar-inverse .navbar-nav > li > a:focus,
+body .navbar-inverse .navbar-nav > li.active > a {
+  border-bottom-color: var(--color-pink);
+}
+
+body .navbar-inverse .navbar-nav > .open > a,
+body .navbar-inverse .navbar-nav > .open > a:hover,
+body .navbar-inverse .navbar-nav > .open > a:focus {
+  background: var(--color-yellow);
+}
+
+body .dropdown-menu > li > a:hover,
+body .dropdown-menu > li > a:focus {
+  background: var(--color-pink);
+}
+
+body .dropdown-menu > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* .navbar-nav .caret,
+.panel-title .caret {
+  margin-top: -24px !important;
+} This breaks on certain pages/isnt accurate on different pages. Address. */
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background: var(--color-yellow);
+}
+
+body .navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #000;
+}
+
+.navbar-header .navbar-toggle {
+  margin-top: 28px;
+}
+
+.navbar-header .navbar-collapse {
+  padding-top: 0;
+}
+
+/* BUTTONS */
+a.btn-primary,
+input.btn-primary,
+button.btn-primary {
+  background-color: var(--color-pink);
+  border: none;
+}
+
+a.btn-primary:hover,
+input.btn-primary:hover,
+button.btn-primary:hover {
+  background: #C22D5D;
+  color: #F3F3F3;
+}
+
+button.close {
+  color: var(--color-navy);
+}
+
+button.close:hover {
+  color: #000;
+}
+
+
+/* TABS */
+.tab-pane {
+  border: 1px solid var(--color-beige);
+  border-top: 0;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid var(--color-beige);
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border: 1px solid var(--color-beige);
+  border-bottom-color: transparent;
+  border-top: 2px solid var(--color-navy);
+  color: var(--color-navy);
+}
+
+.nav-tabs > li:not(.active) > a {
+  border-radius: 3px;
+}
+
+.nav-tabs > li > a {
+  border: none;
+  color: var(--color-navy);
+}
+
+.nav-tabs > li > a:hover {
+  background: var(--color-navy);
+  border: none; /* Overkill */
+  color: #FFF;
+}
+
+/* VARIOUS COMPONENTS */
+.reactable-header-sortable::before {
+  top: 12px;
+  color: var(--color-teal);
+}
+
+/* TODO: Very specific */
+body .list-add-action .btn.btn-sm {
+  box-shadow: none;
+}
+
+.react-gravatar.img-rounded {
+  border-radius: 0 !important; /* Override React inline styles */
+}
+
+/* DASHBOARD */
+.editable-title,
+.editable-title button,
+.editable-title [type="button"] {
+  font-family: var(--header-font);
+}
+
+.editable-title input {
+  padding-left: 0;
+}
+
+body .editable-title input[type="button"] {
+  padding-left: 0;
+}
+
+.dataTables_scroll {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* PANELS */
+.panel {
+  box-shadow: none;
+}
+
+.panel-primary .panel-heading,
+.chart-header {
+  background-color: var(--color-yellow);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+div.widget .chart-header {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 4px 10px 2px;
+  border-bottom: none;
+}
+
+.panel-primary .panel-title {
+  border-bottom: none;
+  color: var(--color-navy);
+  margin-bottom: 10px;
+  font-family: var(--header-font);
+  font-size: 18px;
+  font-weight: var(--weight-bold);
+}
+
+.panel-body h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.panel .table-responsive {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+.panel-title {
+  margin:0;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.panel-title .caret {
+  display: inline-block;
+  margin-top: -32px;
+  color: var(--color-navy);
+  opacity: 0.75;
+}
+
+.panel-group {
+  margin-bottom: 0;
+}
+
+.panel-group .panel-body {
+  padding: 0;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top: 0;
+}
+
+.accordion-toggle + .caret {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.accordion-toggle.collapsed + .caret {
+  line-height: 1.5;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+
+/* TABLES */
+/* Updates the layout table colors/borders */
+.table {
+  margin-bottom: 0;
+}
+
+.table .success {
+  color: var(--color-navy);
+}
+
+.table-hover > tbody > tr:hover {
+  background: var(--color-yellow);
+}
+
+table > thead > tr > td.success,
+.table > tbody > tr > td.success,
+.table > tfoot > tr > td.success,
+.table > thead > tr > th.success,
+.table > tbody > tr > th.success,
+.table > tfoot > tr > th.success,
+.table > thead > tr.success > td,
+.table > tbody > tr.success > td,
+.table > tfoot > tr.success > td,
+.table > thead > tr.success > th,
+.table > tbody > tr.success > th,
+.table > tfoot > tr.success > th {
+  background-color: var(--color-beige);
+  color: var(--color-navy);
+}
+
+table > thead > tr > td.success a,
+.table > tbody > tr > td.success a,
+.table > tfoot > tr > td.success a,
+.table > thead > tr > th.success a,
+.table > tbody > tr > th.success a,
+.table > tfoot > tr > th.success a,
+.table > thead > tr.success > td a,
+.table > tbody > tr.success > td a,
+.table > tfoot > tr.success > td a,
+.table > thead > tr.success > th a,
+.table > tbody > tr.success > th a,
+.table > tfoot > tr.success > th a {
+  color: var(--color-navy);
+}
+
+.table-hover > tbody > tr > td.success:hover,
+.table-hover > tbody > tr > th.success:hover,
+.table-hover > tbody > tr.success:hover > td,
+.table-hover > tbody > tr:hover > .success,
+.table-hover > tbody > tr.success:hover > th {
+  background-color: var(--color-beige-dark);
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td,
+.panel-body.list-container {
+  border: 1px solid var(--color-beige);
+}
+
+.table-responsive + .well {
+  background: var(--color-yellow);
+  padding-left: 0;
+  padding-right: 0;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.table-responsive + .well > button[type=submit] {
+  float: right;
+}
+
+.table thead .fa {
+  color: var(--color-teal); /* For consistency */
+  position: relative;
+  top: 2px;
+}
+
+
+/* LISTS w/FILTER */
+.list-search-container .btn.dropdown-toggle {
+  background-color: var(--color-yellow);
+  position: relative;
+  color: var(--color-navy);
+  top: inherit;
+  right: inherit;
+  position: absolute;
+  right: 110px;
+  top: -52px;
+}
+
+.list-container .list-add-action {
+  top: -38px !important;
+  right: 0 !important;
+  display: block;
+}
+
+.list-add-action .btn.btn-sm {
+  border: 0;
+  border-radius: 3px;
+}
+
+.list-add-action .btn.btn-sm:after {
+  content: attr(data-original-title);
+}
+
+.list-container .form-actions-container {
+  display: block;
+  width: 50%;
+  padding: 0;
+  float: left;
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+
+.list-container .pagination-container {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+}
+
+
+/* Fancy icons */
+.nav-tabs > li > a .fa,
+.panel-body p > .fa,
+.list-add-action .btn.btn-sm .fa,
+.table-responsive + .well > button[type=submit] .fa {
+  opacity: 0.75;
+  font-size: 1.05rem;
+  margin-right: 0.5rem;
+}
+
+.table-responsive + .well > button[type=submit] .fa { /* icons on the right */
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+
+/* SHIMS */
+/* Items to address with dev */
+body .navbar > .container-fluid > .navbar-brand,
+body .navbar .navbar-collapse .navbar-brand {
+  display: none;
+}
+
+.panel-heading + .tab-pane { /* Tab pane even though there's no tab - can we edit this markup? */
+  border: 0;
+}
+
+/* Primary Breakpoint */
+@media (min-width: 768px) {
+
+}
