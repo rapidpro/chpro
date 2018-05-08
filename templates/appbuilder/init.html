@@ -17,9 +17,6 @@
     {% block head_css %}
         <!-- <link href="{{url_for('appbuilder.static',filename='css/bootstrap.min.css')}}" rel="stylesheet"> -->
         <link href="{{url_for('appbuilder.static',filename='css/font-awesome.min.css')}}" rel="stylesheet">
-        {% if appbuilder.app_theme %}
-           <link href="{{url_for('appbuilder.static',filename='css/themes/'+ appbuilder.app_theme )}}"  rel="stylesheet">
-        {% endif %}
 
          <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
          <!--[if lt IE 9]>
