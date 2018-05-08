@@ -1,9 +1,12 @@
 import sqlalchemy as sqla
 
 from dateutil import parser
+from flask_appbuilder.models.sqla.interface import SQLAInterface
+from flask_appbuilder.security.sqla.models import Role
 from flask_script import Manager, Option
+from sqlalchemy.orm.attributes import InstrumentedAttribute
 
-from superset import app, utils
+from superset import app, utils, db
 from superset_config import RAPIDPRO_API_KEY, SQLALCHEMY_DATABASE_URI
 
 from temba_client.v2 import TembaClient
@@ -77,6 +80,72 @@ class ImportRapidProData(Command):
                 except Exception as e:
                     print(f'Error during: {e.orig}')
 
+EDITOR_SQL = '''
+-- adds SQL Lab permissions
+insert into ab_permission_view_role (permission_view_id, role_id)
+  select apv.id, ar.id from ab_permission_view as apv
+  inner join ab_role as ar on ar.name = "Editor"
+  where apv.id in (select permission_view_id from ab_permission_view_role where role_id = (select id from ab_role where name = "sql_lab"));
+'''
+
+VIEWER_SQL = '''
+-- remove can delete
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_delete")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can add
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_add")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can add slices
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_add_slices")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can copy dash
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_copy_dash")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can delete
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_delete")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can edit
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_edit")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can import dashboards
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "can_import_dashboards")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- remove can override role permissions
+-- role will not any by default
+
+-- remove muldelete
+delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "muldelete")) and role_id = (select id from ab_role where name = "Viewer");
+'''
+
+class SetupPermissions(Command):
+    """Programatically setup the chpro permissions"""
+
+    def run(self):
+        session = db.session()
+
+        # Editor
+        alpha = session.query(Role).filter(Role.name=='Alpha')[0]
+        new_role = Role()
+        new_role.name = 'Editor'
+        new_role.permissions = alpha.permissions
+        print('Copying Alpha role to Editor...')
+        SQLAInterface(Role, session).add(new_role)
+        print('Generating custom Editor permissions from SQL...')
+        db.engine.execute(EDITOR_SQL)
+        print('Editor role created successfully.\n\n')
+
+        # Viewer
+        gamma = session.query(Role).filter(Role.name=='Gamma')[0]
+        new_role = Role()
+        new_role.name = 'Viewer'
+        new_role.permissions = alpha.permissions
+        print('Copying Gamma role to Viewer...')
+        SQLAInterface(Role, session).add(new_role)
+        print('Generating custom Viewer permissions from SQL...')
+        db.engine.execute(VIEWER_SQL)
+        print('Viewer role created successfully.')
+
+
 
 class LoadInitialData(Command):
     """Load initial chpro data"""
@@ -87,4 +156,5 @@ class LoadInitialData(Command):
 manager = Manager(app)
 manager.add_command('import_rapidpro_data', ImportRapidProData())
 manager.add_command('load_initial_data', LoadInitialData())
+manager.add_command('setup_permissions', SetupPermissions())
 
