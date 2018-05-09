@@ -6,28 +6,27 @@
   --color-teal: #53BDA6;
   --color-beige: #DCE4D7;
   --color-beige-dark: #9FB9B4;
+  --color-yellow-light: #F1F3EF;
   --color-yellow: #EAF0E6;
   --color-gray: #818181;
   --color-gray-light: #C5C5C5;
 
   --header-font: 'Titillium Web', Helvetica, sans-serif;
+  --body-font: 'Open Sans', Helvetica, sans-serif;
   --weight-bold: 700;
 }
 
 body {
-  font-family: 'Open Sans', Helvetica, sans-serif;
+  background-color: var(--color-yellow-light);
+  font-family: var(--body-font);
   color: var(--color-navy);
-  background-color: var(--color-yellow);
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--header-font);
-  font-weight: var(--weight-bold);
+.container {
+  margin-bottom: 3rem;
 }
 
+/* LINKS */
 body a {
   color: var(--color-navy);
 }
@@ -40,12 +39,47 @@ td a:hover {
   text-decoration: none;
 }
 
+/* TYPOGRAPHY */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--header-font);
+  font-weight: var(--weight-bold);
+}
+
 /* FORMS */
 body .help-block {
   color: #494949;
 }
 
-/* HEADER */
+.form-control,
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.form-group .input-group-addon {
+  border-color: #B6C9C5;
+  border-radius: 0;
+}
+
+.form-control:focus {
+  border-color: #9FB9B4;
+}
+
+.form-group label {
+  font-family: 'Titillium Web', Helvetica, sans-serif;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #5A7C81;
+  letter-spacing: 0.05rem;
+}
+
+.form-group .input-group-addon {
+  background-color: #F1F5F4;
+  color: #324955;
+}
+
+/* NAVBAR */
 .navbar-header {
   /* margin-right: 40px !important; */ /* XXX */
   height: 80px;
@@ -66,74 +100,16 @@ body .help-block {
   text-transform: uppercase;
 }
 
-/* Fixes alignment of flag. TODO: Double check other flags */
-.navbar-nav .f16 .flag {
-  vertical-align: middle;
+.navbar-inverse {
+  border: none;
 }
-
-/* Dropdown menus */
-.navbar-inverse .navbar-nav > li > a,
-body .dropdown-menu > li > a {
-  color: #000;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.navbar-inverse .navbar-nav > li > a .fa,
-body .dropdown-menu > li > a .fa {
-  /* color: var(--color-gray); */
-  opacity: 0.75;
-  font-size: 1.05rem;
-  margin-right: 0.5rem;
-}
-
-.navbar-inverse .navbar-nav > li > a .fa {
-  color: var(--color-navy);
-}
-
-body .dropdown-menu > li > a:hover .fa,
-body .dropdown-menu > li > a:focus .fa {
-  color: white;
-}
-
-.dropdown-menu {
-  border-color: var(--color-gray-light) !important;
-}
-
-/* TODO: Too much work to override */
-body .navbar-inverse .navbar-nav > li > a:hover,
-body .navbar-inverse .navbar-nav > li > a:focus,
-body .navbar-inverse .navbar-nav > li.active > a {
-  border-bottom-color: var(--color-pink);
-}
-
-body .navbar-inverse .navbar-nav > .open > a,
-body .navbar-inverse .navbar-nav > .open > a:hover,
-body .navbar-inverse .navbar-nav > .open > a:focus {
-  background: var(--color-yellow);
-}
-
-body .dropdown-menu > li > a:hover,
-body .dropdown-menu > li > a:focus {
-  background: var(--color-pink);
-}
-
-body .dropdown-menu > li > a {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-/* .navbar-nav .caret,
-.panel-title .caret {
-  margin-top: -24px !important;
-} This breaks on certain pages/isnt accurate on different pages. Address. */
 
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
   background: var(--color-yellow);
 }
 
-body .navbar-inverse .navbar-toggle .icon-bar {
+.navbar-inverse .navbar-toggle .icon-bar {
   background-color: #000;
 }
 
@@ -145,12 +121,75 @@ body .navbar-inverse .navbar-toggle .icon-bar {
   padding-top: 0;
 }
 
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background: var(--color-yellow);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li.active > a {
+  margin-bottom: 0;
+  box-shadow: inset 0 -3px 0 var(--color-pink);
+  border: none;
+}
+
+/* Fixes alignment of flag. TODO: Double check other flags */
+.navbar-nav .f16 .flag {
+  vertical-align: middle;
+}
+
+/* .navbar-nav .caret,
+.panel-title .caret {
+  margin-top: -24px !important;
+} TODO: This breaks on certain pages/isnt accurate on different pages. Address. */
+
+
+/* DROPDOWNS */
+.dropdown-menu {
+  border-color: var(--color-gray-light) !important;
+}
+
+.dropdown-menu > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background: var(--color-pink);
+}
+
+.dropdown-menu > li > a:hover .fa,
+.dropdown-menu > li > a:focus .fa {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.dropdown-menu > li > a {
+  padding-right: 16px;
+  padding-left: 16px;
+  color: #000;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa,
+.dropdown-menu > li > a .fa {
+  margin-right: 0.5rem;
+  font-size: 1.05rem;
+  opacity: 0.75;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa {
+  color: var(--color-navy);
+}
+
 /* BUTTONS */
 a.btn-primary,
 input.btn-primary,
 button.btn-primary {
-  background-color: var(--color-pink);
   border: none;
+  background-color: var(--color-pink);
 }
 
 a.btn-primary:hover,
@@ -172,7 +211,13 @@ button.close:hover {
 /* TABS */
 .tab-pane {
   border: 1px solid var(--color-beige);
-  border-top: 0;
+  border-top: none;
+  border-color: #DCE4D7;
+  border-radius: 2px;
+}
+
+.tab-pane .panel  {
+  border: none;
 }
 
 .nav-tabs {
@@ -183,9 +228,9 @@ button.close:hover {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   border: 1px solid var(--color-beige);
-  border-bottom-color: transparent;
   border-top: 2px solid var(--color-navy);
   color: var(--color-navy);
+  border-bottom-color: transparent;
 }
 
 .nav-tabs > li:not(.active) > a {
@@ -198,89 +243,38 @@ button.close:hover {
 }
 
 .nav-tabs > li > a:hover {
+  border: none;
   background: var(--color-navy);
-  border: none; /* Overkill */
   color: #FFF;
-}
-
-/* VARIOUS COMPONENTS */
-.reactable-header-sortable::before {
-  top: 12px;
-  color: var(--color-teal);
-}
-
-/* TODO: Very specific */
-body .list-add-action .btn.btn-sm {
-  box-shadow: none;
-}
-
-.react-gravatar.img-rounded {
-  border-radius: 0 !important; /* Override React inline styles */
-}
-
-/* DASHBOARD */
-.editable-title,
-.editable-title button,
-.editable-title [type="button"] {
-  font-family: var(--header-font);
-}
-
-.editable-title input {
-  padding-left: 0;
-}
-
-body .editable-title input[type="button"] {
-  padding-left: 0;
-}
-
-.dataTables_scroll {
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 /* PANELS */
 .panel {
+  margin-bottom: 0;
   box-shadow: none;
-}
-
-.panel-primary .panel-heading,
-.chart-header {
-  background-color: var(--color-yellow);
-  padding-right: 0;
-  padding-left: 0;
+  border: 1px solid #DCE4D7;
 }
 
 div.widget .chart-header {
-  margin-left: 0;
   margin-right: 0;
+  margin-left: 0;
   padding: 4px 10px 2px;
   border-bottom: none;
 }
 
+.panel-primary .panel-heading {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .panel-primary .panel-title {
+  margin: 0;
+  padding: 1rem;
   border-bottom: none;
-  color: var(--color-navy);
-  margin-bottom: 10px;
   font-family: var(--header-font);
   font-size: 18px;
   font-weight: var(--weight-bold);
-}
-
-.panel-body h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-.panel .table-responsive {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-
-.panel-title {
-  margin:0;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
+  color: var(--color-navy);
 }
 
 .panel-title .caret {
@@ -298,18 +292,23 @@ div.widget .chart-header {
   padding: 0;
 }
 
+.panel-body h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top: 0;
+  border-top: none;
 }
 
 .accordion-toggle + .caret {
   display: inline-block;
+  margin: 0;
   width: 30px;
   height: 30px;
-  border: 0;
-  text-align: center;
-  margin: 0;
+  border: none;
   line-height: 1;
+  text-align: center;
   opacity: 0.75;
 }
 
@@ -322,7 +321,6 @@ div.widget .chart-header {
   transform: rotate(180deg);
 }
 
-
 /* TABLES */
 /* Updates the layout table colors/borders */
 .table {
@@ -331,10 +329,6 @@ div.widget .chart-header {
 
 .table .success {
   color: var(--color-navy);
-}
-
-.table-hover > tbody > tr:hover {
-  background: var(--color-yellow);
 }
 
 table > thead > tr > td.success,
@@ -368,12 +362,20 @@ table > thead > tr > td.success a,
   color: var(--color-navy);
 }
 
+.table-hover > tbody > tr:hover {
+  background: var(--color-yellow);
+}
+
 .table-hover > tbody > tr > td.success:hover,
 .table-hover > tbody > tr > th.success:hover,
 .table-hover > tbody > tr.success:hover > td,
 .table-hover > tbody > tr:hover > .success,
 .table-hover > tbody > tr.success:hover > th {
   background-color: var(--color-beige-dark);
+}
+
+.table-bordered {
+  border: none;
 }
 
 .table-bordered > thead > tr > th,
@@ -383,86 +385,164 @@ table > thead > tr > td.success a,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td,
 .panel-body.list-container {
-  border: 1px solid var(--color-beige);
+  padding: 2rem 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: 1px solid #EAF0E6;
+  border-left: none;
+}
+
+.table-bordered > thead > tr:last-child > th,
+.table-bordered > tbody > tr:last-child > th,
+.table-bordered > tfoot > tr:last-child > th,
+.table-bordered > thead > tr:last-child > td,
+.table-bordered > tbody > tr:last-child > td,
+.table-bordered > tfoot > tr:last-child > td {
+  border-bottom: none;
 }
 
 .table-responsive + .well {
-  background: var(--color-yellow);
-  padding-left: 0;
+  margin: 1.5rem -1px -1px -1px;
   padding-right: 0;
-  border: none;
+  padding-left: 0;
   box-shadow: none;
+  border: none;
+  border-top: 1px solid #DCE4D7;
   border-radius: 0;
+  background: #F1F3EF;
 }
 
 .table-responsive + .well > button[type=submit] {
   float: right;
 }
 
-.table thead .fa {
-  color: var(--color-teal); /* For consistency */
-  position: relative;
-  top: 2px;
+.table .help-block {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  font-size: 1.25rem;
 }
 
+.table .help-block:empty {
+  display: none;
+}
+
+.table thead .fa {
+  position: relative;
+  top: 2px;
+  color: var(--color-teal); /* For consistency */
+}
+
+.panel .table-responsive {
+  padding: 0 2rem;
+}
 
 /* LISTS w/FILTER */
 .list-search-container .btn.dropdown-toggle {
-  background-color: var(--color-yellow);
-  position: relative;
-  color: var(--color-navy);
-  top: inherit;
-  right: inherit;
   position: absolute;
+  top: -35px;
   right: 110px;
-  top: -52px;
+  background-color: transparent;
+  color: var(--color-navy);
+}
+
+.list-container.panel-body {
+  border: none;
 }
 
 .list-container .list-add-action {
-  top: -38px !important;
-  right: 0 !important;
+  top: -22px !important;
+  right: 15px !important;
   display: block;
 }
 
-.list-add-action .btn.btn-sm {
-  border: 0;
+.list-container .list-add-action .btn.btn-sm {
+  box-shadow: none;
+  border: none;
   border-radius: 3px;
 }
 
-.list-add-action .btn.btn-sm:after {
+.list-container .list-add-action .btn.btn-sm:after {
   content: attr(data-original-title);
 }
 
 .list-container .form-actions-container {
   display: block;
-  width: 50%;
-  padding: 0;
   float: left;
-  margin-bottom: 0;
   margin-top: 2rem;
+  margin-bottom: 0;
+  padding: 0;
+  width: 50%;
 }
 
 .list-container .pagination-container {
   margin-top: 2rem;
-  font-size: 1.25rem;
   padding-top: 0.5rem;
   padding-bottom: 0;
+  font-size: 1.25rem;
 }
 
+.list-container .table-bordered > thead > tr > th,
+.list-container .table-bordered > tbody > tr > th,
+.list-container .table-bordered > tfoot > tr > th,
+.list-container .table-bordered > thead > tr > td,
+.list-container .table-bordered > tbody > tr > td,
+.list-container .table-bordered > tfoot > tr > td,
+.list-container .table-bordered,
+.list-container .panel-body.list-container {
+  padding: 8px;
+  border: 1px solid var(--color-beige);
+}
 
-/* Fancy icons */
+/* FANCY ICONS */
 .nav-tabs > li > a .fa,
 .panel-body p > .fa,
 .list-add-action .btn.btn-sm .fa,
 .table-responsive + .well > button[type=submit] .fa {
-  opacity: 0.75;
-  font-size: 1.05rem;
   margin-right: 0.5rem;
+  font-size: 1.05rem;
+  opacity: 0.75;
 }
 
 .table-responsive + .well > button[type=submit] .fa { /* icons on the right */
-  margin-left: 0.5rem;
   margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+/* LOGIN */
+#loginbox .help-block {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+
+/* VARIOUS COMPONENTS */
+.reactable-header-sortable::before {
+  top: 12px;
+  color: var(--color-teal);
+}
+
+.react-gravatar.img-rounded {
+  border-radius: 0 !important; /* Override React inline styles */
+}
+
+/* DASHBOARD */
+.editable-title,
+.editable-title button,
+.editable-title [type="button"] {
+  font-family: var(--header-font);
+}
+
+.editable-title input {
+  padding-left: 0;
+}
+
+.editable-title input[type="button"] {
+  padding-left: 0;
+}
+
+.dataTables_scroll {
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 
@@ -474,7 +554,7 @@ body .navbar .navbar-collapse .navbar-brand {
 }
 
 .panel-heading + .tab-pane { /* Tab pane even though there's no tab - can we edit this markup? */
-  border: 0;
+  border: none;
 }
 
 /* Primary Breakpoint */
