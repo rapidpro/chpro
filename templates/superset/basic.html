@@ -21,11 +21,12 @@
       <link rel="stylesheet" type="text/css" href="/static/appbuilder/css/flags/flags16.css" />
       <link rel="stylesheet" type="text/css" href="{{ js_manifest('theme.css') }}" />
       <link rel="stylesheet" type="text/css" href="/static/appbuilder/css/font-awesome.min.css">
+      {% if appbuilder.app_theme %}
+         <link href="{{url_for('appbuilder.static',filename='css/themes/'+ appbuilder.app_theme )}}"  rel="stylesheet">
+      {% endif %}
       {% if entry %}
         <link rel="stylesheet" type="text/css" href="{{ js_manifest(entry + '.css') }}" />
       {% endif %}
-
-      <link rel="stylesheet" type="text/css" href="/static/css/rph.css" />
     {% endblock %}
     {% block head_js %}
       <script src="{{ js_manifest('common.js') }}"></script>
