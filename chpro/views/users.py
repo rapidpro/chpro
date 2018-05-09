@@ -45,4 +45,5 @@ class EditorUserView(UserModelView):
         return widget
 
 
-appbuilder.add_view(EditorUserView, 'Manage Viewers')
+appbuilder.add_view(EditorUserView, 'Manage Viewers',
+                    icon='fa-user')

@@ -78,12 +78,6 @@ class LoadSQL(SimpleFormView):
         return redirect('/tablemodelview/list/')
 
 
-appbuilder.add_view(LoadSQL, 'LoadSQL')
-appbuilder.add_link(
-    'Load SQL',
-    label=_('Load SQL'),
-    href='/loadsql/form',
-    icon='fa-upload',
-    category='Sources',
-    category_label=_('Sources'),
-    category_icon='fa-wrench')
+appbuilder.add_view(LoadSQL, 'LoadSQL',
+                    category='Sources',
+                    icon='fa-upload',)
