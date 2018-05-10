@@ -15,17 +15,22 @@ RUN set -ex && pip install pip pipenv --upgrade
 RUN set -ex && mkdir /app
 WORKDIR /app
 
-ADD ./Pipfile /app/
-ADD ./Pipfile.lock /app/
+COPY ./Pipfile /app/
+COPY ./Pipfile.lock /app/
 
 # -- Install dependencies:
 RUN set -ex && pipenv install --deploy --system --ignore-pipfile $PIPENV_ARGS
 
 # -- Install Application into container:
-ADD . /app
+COPY . /app
 
 # -- Install the application itself:
 RUN set -ex && pip install -e .
+
+# -- Compile the documentation to html
+WORKDIR /app/docs
+RUN set -ex && make html
+WORKDIR /app
 
 # -- Make sure the superset configuration will be discoverable
 ENV PYTHONPATH $PYTHONPATH:/app

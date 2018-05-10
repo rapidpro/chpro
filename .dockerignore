@@ -8,3 +8,4 @@
 !templates/**
 !setup.py
 !superset_config.py
+!docs/**
