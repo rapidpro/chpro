@@ -37,7 +37,7 @@ def mysql():
 @task
 def apprun(command):
     print('\n\n--------')
-    with settings(output_prefix=False):
+    with settings(output_prefix=False, remote_interrupt=True):
         run("docker exec -it {container} bash -c '{command}'".format(
             command=command,
             container=get_app_container()
