@@ -19,6 +19,7 @@ rapidpro-python = "*"
 sphinx = "*"
 recommonmark = "*"
 sphinx-rtd-theme = "*"
+sqlalchemy-utils = "==0.32.*"
 
 
 [requires]
