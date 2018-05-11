@@ -262,6 +262,19 @@ button.close:hover {
   margin: 0;
 }
 
+.panel .tab-pane {
+  padding: 0 2rem;
+}
+
+.panel .tab-pane .panel-title {
+  padding: 1rem;
+  background: var(--color-beige);
+}
+
+.panel .tab-pane .panel {
+  margin-bottom: 2rem;
+}
+
 div.widget .chart-header {
   margin-right: 0;
   margin-left: 0;
@@ -307,19 +320,43 @@ div.widget .chart-header {
   padding: 0;
 }
 
+.panel-group + .well {
+  position: relative;
+  top: 2rem;
+  margin: 0 -3rem -4rem -3rem;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.panel-group + .well .btn-primary {
+  float: right;
+  margin-left: 1rem;
+}
+
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top: none;
 }
 
 .accordion-toggle + .caret {
+  position: relative;
   display: inline-block;
   margin: 0;
   width: 30px;
-  height: 30px;
+  height: 10px;
   border: none;
   line-height: 1;
   text-align: center;
   opacity: 0.75;
+}
+
+.accordion-toggle + .caret:before {
+  position: absolute;
+  top: -3px;
+  right: 0;
+  left: 0;
+  display: inline-block;
+  text-align: center;
 }
 
 .accordion-toggle.collapsed + .caret {
@@ -518,6 +555,8 @@ form .table-responsive {
 /* FANCY ICONS */
 .nav-tabs > li > a .fa,
 .panel-body p > .fa,
+.sql-toolbar .btn .fa,
+.panel-group + .well .btn-primary .fa,
 .list-add-action .btn.btn-sm .fa,
 .table-responsive + .well > button[type=submit] .fa {
   margin-right: 0.5rem;
@@ -534,6 +573,22 @@ form .table-responsive {
 #loginbox .help-block {
   margin-top: 0;
   margin-bottom: 2rem;
+}
+
+/* SQL LAB */
+#a11y-query-editor-tabs .nav-tabs .dropdown-toggle.btn .caret {
+  margin-top: -26px;
+  margin-left: -10px;
+  opacity: 0.75;
+}
+
+#a11y-query-editor-tabs .SouthPane .tab-content {
+  padding-top: 0;
+}
+
+#a11y-query-editor-tabs .panel .SouthPane .tab-pane {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 /* VARIOUS COMPONENTS */
