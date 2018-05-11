@@ -1,4 +1,3 @@
-import docker
 from fabric.api import *
 
 env.roledefs = {
@@ -51,7 +50,7 @@ def build_image():
 
 @task
 def export_image():
-    local('docker save -o chpro.tar chpro:production')
+    local('docker save chpro:production | gzip > chpro.tar.gz')
 
 @task
 @roles('staging')
@@ -60,8 +59,8 @@ def deploy():
     export_image()
 
     # Upload the latest image
-    put('chpro.tar', '')
-    run('docker load -i chpro.tar')
+    put('chpro.tar.gz', '')
+    run('gunzip -c chpro.tar.gz | docker load ')
 
     # Update the config if necessary
     with cd('chpro'):
@@ -70,3 +69,7 @@ def deploy():
 
     # Update the app
     run('docker service update production_chpro --force')
+
+    # Cleanup
+    run('rm chpro.tar.gz')
+    local('rm chpro.tar.gz')
