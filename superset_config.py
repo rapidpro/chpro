@@ -26,3 +26,8 @@ APP_THEME = "rph.css"
 # Instead, we register them where we define them and make sure they are loaded
 # at app initialization
 BLUEPRINTS = []
+
+LANGUAGES = {
+    'en': {'flag': 'us', 'name': 'English'},
+    'fr': {'flag': 'fr', 'name': 'French'},
+}
