@@ -1,6 +1,7 @@
 from flask import g
 from superset import app
 
+
 @app.context_processor
 def chpro_roles():
     try:

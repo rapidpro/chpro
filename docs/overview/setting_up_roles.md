@@ -1,4 +1,6 @@
-# Setting Up Primary Roles
+# Roles
+
+## Introduction
 
 Superset has a permission system built-in based on the underlying Flask AppBuilder security API.  The FAB Security model aims to be pretty
 fine-grained, which can be both a blessing and a curse.
@@ -8,12 +10,25 @@ it by union'ing in other roles.  There is not at this time much guidance in term
 is that you end up with a huge jumble of permissions per role and it is not easy to tell which permissions relate specifically relate to any given view
 within the site.
 
+## Setting up roles programmatically
+
+A CLI command is provided to load the roles in a way that mimics the
+manual process descrived bellow.
+
+To do this, you can run `chpro setup_permissions` from an environment where the
+application is installed.
+
+When running the application via docker, you can use the shortcut `fab apprun:'chpro setup_permissions'`
+
+
+## Setting Up Primary Roles
+
 The following is intended as a starting point for initial exploration and testing of the site.  Some attempt has been made to remove edit / delete
 actions from the Viewer role while preserving the ability to view Dashboards and Charts.  More work may be needed to remove other permissions not
 suitable for this role.  In some cases an 'edit' button may display but the user does not have permission and will be redirected elsewhere. However the UI
 would need some attention here.
 
-## Create Viewer Role
+### Create Viewer Role
 
 First create a copy of the default `Gamma` role.
 
@@ -54,7 +69,7 @@ delete from ab_permission_view_role where permission_view_id in (select id from 
 
 ```
 
-## Create Editor Role
+### Create Editor Role
 
 Create a copy of the default `Alpha` role.
 

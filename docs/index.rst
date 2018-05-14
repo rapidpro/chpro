@@ -17,6 +17,7 @@ Table of contents
    :caption: Overview
 
    overview/architecture
+   overview/infrastructure
    overview/setting_up_roles
 
 .. toctree::
@@ -24,6 +25,10 @@ Table of contents
    :maxdepth: 1
 
    guides/writing_documentation
+   guides/writing_cli_commands
+   guides/interacting_with_docker
+   guides/using_the_fabric_shortcuts
+   guides/importing_rapidpro_data
 
 .. toctree::
    :maxdepth: 2
