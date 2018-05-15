@@ -18,6 +18,7 @@ Table of contents
 
    overview/architecture
    overview/infrastructure
+   overview/required_secrets
    overview/setting_up_roles
 
 .. toctree::
