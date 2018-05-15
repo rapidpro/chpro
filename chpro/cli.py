@@ -86,6 +86,14 @@ insert into ab_permission_view_role (permission_view_id, role_id)
   select apv.id, ar.id from ab_permission_view as apv
   inner join ab_role as ar on ar.name = "Editor"
   where apv.id in (select permission_view_id from ab_permission_view_role where role_id = (select id from ab_role where name = "sql_lab"));
+  
+-- adds Manage Viewers permissions
+insert into ab_permission_view_role (permission_view_id, role_id)
+  select apv.id, ar.id from ab_permission_view as apv
+  inner join ab_role as ar on ar.name = "Editor"
+    where permission_id in (select id from ab_permission where name in ('can_add', 'can_download', 'can_edit', 'can_list', 'can_show', 'can_delete', 'muldelete', 'mulexport'))
+      and
+    view_menu_id = (select id from ab_view_menu where name = "Manage Viewers")  
 '''
 
 VIEWER_SQL = '''
@@ -115,6 +123,14 @@ delete from ab_permission_view_role where permission_view_id in (select id from 
 
 -- remove muldelete
 delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "muldelete")) and role_id = (select id from ab_role where name = "Viewer");
+
+-- add data access
+insert into ab_permission_view_role (permission_view_id, role_id)
+  select apv.id, ar.id from ab_permission_view as apv
+  inner join ab_role as ar on ar.name = "Viewer"
+    where permission_id = (select id from ab_permission where name = 'all_datasource_access')
+      and
+    view_menu_id = (select id from ab_view_menu where name = 'all_datasource_access');
 '''
 
 class SetupPermissions(Command):
@@ -128,11 +144,11 @@ class SetupPermissions(Command):
         new_role = Role()
         new_role.name = 'Editor'
         new_role.permissions = alpha.permissions
-        print('Copying Alpha role to Editor...')
+        print('\nCopying Alpha role to Editor...')
         SQLAInterface(Role, session).add(new_role)
         print('Generating custom Editor permissions from SQL...')
         db.engine.execute(EDITOR_SQL)
-        print('Editor role created successfully.\n\n')
+        print('Editor role created successfully.\n')
 
         # Viewer
         gamma = session.query(Role).filter(Role.name=='Gamma')[0]
