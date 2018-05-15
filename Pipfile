@@ -19,7 +19,8 @@ rapidpro-python = "*"
 sphinx = "*"
 recommonmark = "*"
 sphinx-rtd-theme = "*"
-sqlalchemy-utils = "==0.32.*"
+contextlib2 = "*"
+"fabric3" = "*"
 
 
 [requires]
