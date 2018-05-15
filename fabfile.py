@@ -1,3 +1,5 @@
+import itertools
+
 from fabric.api import *
 
 env.roledefs = {
@@ -18,11 +20,36 @@ def get_db_container():
     else:
         return run('docker ps -f name=production_db.1 -q')
 
+
 def get_app_container():
     if 'local' in env.roles:
         return 'chpro-app'
     else:
         return run('docker ps -f name=production_chpro.1 -q')
+
+
+@task
+def generate_secrets():
+    return
+
+
+@task
+@runs_once
+def bootstrap():
+    if env.host in itertools.chain.from_iterable(env.roledefs.values()):
+        raise Exception('Host is already defined in a role. Bootstrap should '
+                        'only be used on new hosts.')
+    # Create the chpro user
+    sudo('id -u chpro &>/dev/null || adduser --disabled-password --gecos "" --quiet chpro')
+    sudo('usermod -aG sudo chpro')
+    # ToDo: Add a ssh key or pw
+    sudo('sudo -u chpro git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
+    sudo('/home/chpro/chpro/ops/scripts/get-docker.sh')
+    sudo('rm -Rf /home/chpro/chpro')
+    sudo('sudo usermod -aG docker chpro')
+    sudo('docker swarm init')
+    generate_secrets()
+    # ToDo: Initialize the application
 
 @task
 def mysql():
@@ -32,6 +59,7 @@ def mysql():
             secret='MYSQL_PASSWORD',
             container=get_db_container()
         ))
+
 
 @task
 def apprun(command):
@@ -48,9 +76,11 @@ def apprun(command):
 def build_image():
     local('docker build -t chpro:production -f ops/containers/app/Dockerfile .')
 
+
 @task
 def export_image():
     local('docker save chpro:production | gzip > chpro.tar.gz')
+
 
 @task
 @roles('staging')
