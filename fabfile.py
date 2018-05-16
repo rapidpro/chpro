@@ -1,6 +1,7 @@
 import itertools
 
 from fabric.api import *
+from fabric.contrib import files, console
 
 env.roledefs = {
     'local': ['localhost'],
@@ -30,6 +31,7 @@ def get_app_container():
 
 @task
 def generate_secrets():
+    #import ipdb; ipdb.set_trace()
     return
 
 
@@ -42,14 +44,35 @@ def bootstrap():
     # Create the chpro user
     sudo('id -u chpro &>/dev/null || adduser --disabled-password --gecos "" --quiet chpro')
     sudo('usermod -aG sudo chpro')
-    # ToDo: Add a ssh key or pw
+
+    can_login = False
+    if console.confirm('Do you wish to add an authorized ssh key for the '
+                       'chpro user?', default=False):
+        sudo('sudo -u chpro -- mkdir -p /home/chpro/.ssh')
+        files.append(
+            '/home/chpro/.ssh/authorized_keys',
+            prompt('Please paste the desired ssh public key (i.e. ~/.ssh/id_rsa.pub):'),
+            use_sudo=True
+        )
+        can_login = True
+    if not can_login:
+        if console.confirm('Do you wish to add password for the '
+                           'chpro user?', default=False):
+            sudo('passwd chpro')
+            can_login = True
+    if not can_login:
+        raise Exception('You will not be able to login as the chpro user. '
+                        'Make sure to provide a password or a ssh key')
+
     sudo('sudo -u chpro git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
     sudo('/home/chpro/chpro/ops/scripts/get-docker.sh')
-    sudo('rm -Rf /home/chpro/chpro')
     sudo('sudo usermod -aG docker chpro')
+    # ToDo: Add option to bootstrap a server that will join an existing swarm
     sudo('docker swarm init')
-    generate_secrets()
-    # ToDo: Initialize the application
+    if console.confirm('You will need secrets for the application to run. '
+                       'Do you wish to generate them?'):
+        generate_secrets()
+
 
 @task
 def mysql():
@@ -84,7 +107,7 @@ def export_image():
 
 @task
 @roles('staging')
-def deploy():
+def deploy(first_time=False):
     build_image()
     export_image()
 
@@ -103,3 +126,10 @@ def deploy():
     # Cleanup
     run('rm chpro.tar.gz')
     local('rm chpro.tar.gz')
+
+    if first_time:
+        if console.confirm('Do you wish to initialize the database? If you '
+                           'choose not to do this, the application will not '
+                           'run and you will need to initialize the DB '
+                           'manually', default=True):
+            pass
