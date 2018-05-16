@@ -8,7 +8,12 @@ env.roledefs = {
     'staging': ['chpro@46.101.31.170'],
 }
 
-if not len(env.roles):
+role_map = {}
+for role in env.roledefs:
+    for host in env.roledefs[role]:
+        role_map[host] = role
+
+if not len(env.roles) and not len(env.hosts):
     env.roles = ['local']
 
 
@@ -30,13 +35,39 @@ def get_app_container():
 
 
 @task
-def generate_secrets():
-    #import ipdb; ipdb.set_trace()
+def generate_secret(key=None, value=None):
+    if not key or not value:
+        raise Exception('Please provide a key and a value for the secret')
+
+    if 'local' in env.roles:
+        local('mkdir -p ops/secrets')
+        local('echo "{}" > ops/secrets/{}'.format(value, key))
+        return
+
+    sudo('echo {} | docker secret create {} -'.format(value, key), user='chpro')
+
+
+
+SECRET_LIST = [
+    'MYSQL_PASSWORD',
+    'MYSQL_ROOT_PASSWORD',
+    'RAPIDPRO_API_KEY',
+    'DOCS_PASSWORD',
+    'DOCS_USER',
+]
+
+@task
+def prompt_for_secrets():
+    print('Generating all secrets required for the application to run...')
+    for key in SECRET_LIST:
+        value = prompt('Please provide a value for secret "{}" '
+                       '(Leave empty to ignore): '.format(key))
+        if value:
+            generate_secret(key, value)
     return
 
 
 @task
-@runs_once
 def bootstrap():
     if env.host in itertools.chain.from_iterable(env.roledefs.values()):
         raise Exception('Host is already defined in a role. Bootstrap should '
@@ -48,7 +79,7 @@ def bootstrap():
     can_login = False
     if console.confirm('Do you wish to add an authorized ssh key for the '
                        'chpro user?', default=False):
-        sudo('sudo -u chpro -- mkdir -p /home/chpro/.ssh')
+        sudo('sudo -u chpro -- mkdir -p /home/chpro/.ssh')  # ToDo: Should we just use the user param here?
         files.append(
             '/home/chpro/.ssh/authorized_keys',
             prompt('Please paste the desired ssh public key (i.e. ~/.ssh/id_rsa.pub):'),
@@ -64,6 +95,8 @@ def bootstrap():
         raise Exception('You will not be able to login as the chpro user. '
                         'Make sure to provide a password or a ssh key')
 
+    # ToDo: Should we just use the user param here?
+    # ToDo: should we use put() instead of git? We need the network anyway to get docker
     sudo('sudo -u chpro git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
     sudo('/home/chpro/chpro/ops/scripts/get-docker.sh')
     sudo('sudo usermod -aG docker chpro')
@@ -71,7 +104,38 @@ def bootstrap():
     sudo('docker swarm init')
     if console.confirm('You will need secrets for the application to run. '
                        'Do you wish to generate them?'):
-        generate_secrets()
+        prompt_for_secrets()
+
+    if console.confirm('Do you wish to deploy the application on the server right now?'):
+        deploy(first_time=True)
+        # ToDo: Change these strings to use the chpro user.
+        print('''
+        The server has been successfully bootstrapped and deployed.
+        
+        To continue managing the server via fabric, make sure to add a role definition for it, i.e.:
+
+        env.roledefs = {
+        'local': ['localhost'],
+        'some_environment': ['{}']  # <-- Like this
+        'staging': ['chpro@46.101.31.170'],
+        }        
+        '''.format(env.hosts[0]))
+    else:
+        print('''
+        The server has been successfully bootstrapped and it's ready for a deployment.
+        
+        To do this, please add a role for the server i.e.:
+        
+        env.roledefs = {
+        'local': ['localhost'],
+        'some_environment': ['{}']  # <-- Like this
+        'staging': ['chpro@46.101.31.170'],
+        }
+    
+        and then run a deploy for that environment:
+        
+        $ fab -R some_environment deploy     
+        '''.format(env.hosts[0]))
 
 
 @task
@@ -96,28 +160,29 @@ def apprun(command):
 
 
 @task
+@runs_once
 def build_image():
     local('docker build -t chpro:production -f ops/containers/app/Dockerfile .')
 
 
 @task
+@runs_once
 def export_image():
     local('docker save chpro:production | gzip > chpro.tar.gz')
 
 
 @task
-@roles('staging')
 def deploy(first_time=False):
-    build_image()
-    export_image()
+    #build_image()
+    #export_image()
 
     # Upload the latest image
-    put('chpro.tar.gz', '')
-    run('gunzip -c chpro.tar.gz | docker load ')
+    #put('chpro.tar.gz', '')
+    #run('gunzip -c chpro.tar.gz | docker load ')
 
     # Update the config if necessary
     with cd('chpro'):
-        run('git pull')
+        #run('git pull')  # ToDo: Should we consider a missing outside network here?
         run('docker stack deploy -c ops/production.yml production')
 
     # Update the app
