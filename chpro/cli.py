@@ -163,14 +163,17 @@ class SetupPermissions(Command):
 
 
 
-class LoadInitialData(Command):
-    """Load initial chpro data"""
+class CustomPostInstallFixes(Command):
+    """Post install fixes"""
 
     def run(self):
-        pass
+        print('Fixing column type length...')
+        db.engine.execute('ALTER TABLE table_columns MODIFY type varchar(255);')
+        print('done')
+
 
 manager = Manager(app)
 manager.add_command('import_rapidpro_data', ImportRapidProData())
-manager.add_command('load_initial_data', LoadInitialData())
+manager.add_command('custom_post_install_fixes', CustomPostInstallFixes())
 manager.add_command('setup_permissions', SetupPermissions())
 

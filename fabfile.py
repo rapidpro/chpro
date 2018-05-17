@@ -172,6 +172,18 @@ def export_image():
 
 
 @task
+def initialize():
+    """Initializes the database if running for the first time"""
+    container = get_app_container()
+    run('docker exec -it {}  fabmanager create-admin --app superset'.format(
+        container))
+    run('docker exec -it {} superset db upgrade'.format(container))
+    run('docker exec -it {} superset init'.format(container))
+    run('docker exec -it {} chpro setup_permissions'.format(container))
+    run('docker exec -it {} chpro custom_post_install_fixes'.format(container))
+
+
+@task
 @roles('staging')
 def deploy(first_time=False):
     build_image()
@@ -189,16 +201,16 @@ def deploy(first_time=False):
     # Update the app
     run('docker service update production_chpro --force')
 
-    # Newer versions of superset may require a db upgrade
-    run('docker exec -it {} superset db upgrade'.format(get_app_container()))
-
-    # Cleanup
-    run('rm chpro.tar.gz')
-    local('rm chpro.tar.gz')
-
     if first_time:
         if console.confirm('Do you wish to initialize the database? If you '
                            'choose not to do this, the application will not '
                            'run and you will need to initialize the DB '
                            'manually', default=True):
-            pass
+            initialize()
+    else:
+        # Newer versions of superset may require a db upgrade
+        run('docker exec -it {} superset db upgrade'.format(get_app_container()))
+
+    # Cleanup
+    run('rm chpro.tar.gz')
+    local('rm chpro.tar.gz')
