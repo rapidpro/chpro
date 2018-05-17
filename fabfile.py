@@ -172,17 +172,18 @@ def export_image():
 
 
 @task
+@roles('staging')
 def deploy(first_time=False):
-    #build_image()
-    #export_image()
+    build_image()
+    export_image()
 
     # Upload the latest image
-    #put('chpro.tar.gz', '')
-    #run('gunzip -c chpro.tar.gz | docker load ')
+    put('chpro.tar.gz', '')
+    run('gunzip -c chpro.tar.gz | docker load ')
 
     # Update the config if necessary
     with cd('chpro'):
-        #run('git pull')  # ToDo: Should we consider a missing outside network here?
+        run('git pull')  # ToDo: Should we consider a missing outside network here?
         run('docker stack deploy -c ops/production.yml production')
 
     # Update the app
