@@ -1,6 +1,7 @@
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder.security.sqla.models import User
 from flask_appbuilder.security.views import UserModelView
+from flask_babel import lazy_gettext as _
 
 from superset import app, appbuilder
 from werkzeug.exceptions import abort
@@ -45,5 +46,5 @@ class EditorUserView(UserModelView):
         return widget
 
 
-appbuilder.add_view(EditorUserView, 'Manage Viewers',
+appbuilder.add_view(EditorUserView, _('Manage Viewers'),
                     icon='fa-user')

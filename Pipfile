@@ -19,6 +19,8 @@ rapidpro-python = "*"
 sphinx = "*"
 recommonmark = "*"
 sphinx-rtd-theme = "*"
+contextlib2 = "*"
+"fabric3" = "*"
 
 
 [requires]

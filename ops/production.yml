@@ -28,8 +28,10 @@ services:
        - MYSQL_ROOT_PASSWORD
        - MYSQL_PASSWORD
        - RAPIDPRO_API_KEY
+       - DOCS_USER
+       - DOCS_PASSWORD
      deploy:
-       replicas: 2
+       replicas: 1
        restart_policy:
          condition: on-failure
 
@@ -42,4 +44,8 @@ secrets:
   MYSQL_PASSWORD:
     external: true
   RAPIDPRO_API_KEY:
+    external: true
+  DOCS_USER:
+    external: true
+  DOCS_PASSWORD:
     external: true
