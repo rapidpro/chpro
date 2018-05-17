@@ -626,6 +626,15 @@ form .table-responsive {
   padding-left: 10px;
 }
 
+/* CHARTS */
+#explore-container,
+.scrollbar-container,
+.scrollbar-content {
+  overflow: visible !important;
+  height: auto !important;
+  position: relative !important;
+}
+
 /* SHIMS */
 /* Items to address with dev */
 body .navbar > .container-fluid > .navbar-brand,
