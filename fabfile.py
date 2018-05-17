@@ -189,6 +189,9 @@ def deploy(first_time=False):
     # Update the app
     run('docker service update production_chpro --force')
 
+    # Newer versions of superset may require a db upgrade
+    run('docker exec -it {} superset db upgrade'.format(get_app_container()))
+
     # Cleanup
     run('rm chpro.tar.gz')
     local('rm chpro.tar.gz')

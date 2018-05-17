@@ -31,7 +31,7 @@ services:
        - DOCS_USER
        - DOCS_PASSWORD
      deploy:
-       replicas: 2
+       replicas: 1
        restart_policy:
          condition: on-failure
 
