@@ -26,6 +26,14 @@ body {
   margin-bottom: 3rem;
 }
 
+.loading-gif {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 50px;
+  opacity: 0.5;
+}
+
 /* LINKS */
 body a {
   color: var(--color-navy);
@@ -77,6 +85,29 @@ body .help-block {
 .form-group .input-group-addon {
   background-color: #F1F5F4;
   color: #324955;
+}
+
+.filters {
+  background-color: var(--color-yellow-light);
+}
+
+.filters .remove-filter {
+  background: white;
+  text-decoration: none;
+}
+
+.filters .remove-filter .close-icon {
+  margin-right: 10px;
+  opacity: 0.75;
+}
+
+.select2-container .select2-choice {
+  padding: 5px 5px;
+  height: 42px;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  top: 7px;
 }
 
 /* NAVBAR */
@@ -626,13 +657,17 @@ form .table-responsive {
   padding-left: 10px;
 }
 
+.slice-cell-highlight {
+  box-shadow: 0 0 20px 5px rgba(0,0,0,0.05) !important;
+}
+
 /* CHARTS */
 #explore-container,
 .scrollbar-container,
 .scrollbar-content {
-  overflow: visible !important;
-  height: auto !important;
   position: relative !important;
+  height: auto !important;
+  overflow: visible !important;
 }
 
 /* SHIMS */
