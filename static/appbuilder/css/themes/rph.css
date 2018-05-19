@@ -500,6 +500,15 @@ table > thead > tr > td.success a,
   color: var(--color-teal); /* For consistency */
 }
 
+.table tr:empty {
+  display: none;
+}
+
+.table td .alert {
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
 .panel-body .table-responsive {
   padding: 0;
 }
@@ -569,6 +578,20 @@ form .table-responsive {
   padding-right: 0;
   padding-bottom: 0;
   font-size: 1.25rem;
+}
+
+.list-container .filter-action {
+  margin: 0 0 3rem 0;
+  padding: 1rem;
+  background-color: var(--color-yellow-light);
+}
+
+.list-container .filters-container table tr:last-child td {
+  border: 0;
+}
+
+.list-container .filters td input[type=checkbox] {
+  margin-top: 13px;
 }
 
 .list-container .table-bordered > thead > tr > th,
@@ -660,6 +683,24 @@ form .table-responsive {
 .slice-cell-highlight {
   box-shadow: 0 0 20px 5px rgba(0,0,0,0.05) !important;
 }
+
+#Home .table-responsive,
+#model_form .table-responsive {
+  padding: 0 !important;
+}
+
+#Home .table-responsive + .well,
+#model_form .table-responsive + .well {
+  margin-left: -21px;
+  margin-right: -21px;
+}
+
+
+#Home .table-responsive + .well .btn-primary {
+  float: right;
+  margin-left: 1rem;
+}
+
 
 /* CHARTS */
 #explore-container,
