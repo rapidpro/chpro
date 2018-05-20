@@ -24,6 +24,7 @@ body {
 
 .container {
   margin-bottom: 3rem;
+  padding: 0 20px;
 }
 
 .loading-gif {
@@ -114,10 +115,6 @@ body .help-block {
 .navbar-header {
   /* margin-right: 40px !important; */ /* XXX */
   height: 80px;
-}
-
-.navbar-collapse {
-  padding-top: 26px;
 }
 
 .navbar-nav a {
@@ -601,6 +598,10 @@ form .table-responsive {
   width: 50%;
 }
 
+.list-container .pagination-container .pagination {
+  margin: 1rem 0;
+}
+
 .list-container .pagination-container {
   margin-top: 2rem;
   padding-top: 0.5rem;
@@ -738,7 +739,18 @@ body .navbar .navbar-collapse .navbar-brand {
   border: none;
 }
 
+
 /* Primary Breakpoint */
 @media (min-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
 
+  .list-container .pagination-container .pagination {
+    margin: 0;
+  }
+
+  .navbar-collapse {
+    padding-top: 26px;
+  }
 }
