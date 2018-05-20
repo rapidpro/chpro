@@ -347,7 +347,7 @@ div.widget .chart-header {
   padding: 0;
 }
 
-.panel-group + .well {
+.panel-group:not(#accordion1) + .well {
   position: relative;
   top: 2rem;
   margin: 0 -1rem -4rem -1rem;

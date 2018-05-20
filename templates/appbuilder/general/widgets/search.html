@@ -31,6 +31,7 @@
         function checkSearchButton() {
             var hasFilter = $('.filters tr').length;
             var listLength = $('.table-responsive').length;
+            var formAction = $('.form-actions-container').length;
 
             if (hasFilter) {
                 $('.filters a.remove-filter').off('click', checkSearchButton);
@@ -41,7 +42,7 @@
             }
 
             // Hides filter if no list items
-            if (listLength == 1) {
+            if (listLength == 1 && formAction > 0) {
               $('.list-search-container').hide();
             }
         }
