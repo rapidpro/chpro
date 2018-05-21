@@ -172,10 +172,11 @@ def export_image():
 
 
 @task
-def initialize():
+def initialize(create_admin=False):
     """Initializes the database if running for the first time"""
     container = get_app_container()
-    run('docker exec -it {}  fabmanager create-admin --app superset'.format(container))
+    if create_admin:
+        run('docker exec -it {} fabmanager create-admin --app superset'.format(container))
     run('docker exec -it {} superset db upgrade'.format(container))
     run('docker exec -it {} superset init'.format(container))
     run('docker exec -it {} chpro setup_permissions'.format(container))
@@ -205,7 +206,7 @@ def deploy(first_time=False):
                            'choose not to do this, the application will not '
                            'run and you will need to initialize the DB '
                            'manually', default=True):
-            initialize()
+            initialize(create_admin=True)
     else:
         # Newer versions of superset may require a db upgrade
         run('docker exec -it {} superset db upgrade'.format(get_app_container()))
