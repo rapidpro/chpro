@@ -175,8 +175,7 @@ def export_image():
 def initialize():
     """Initializes the database if running for the first time"""
     container = get_app_container()
-    run('docker exec -it {}  fabmanager create-admin --app superset'.format(
-        container))
+    run('docker exec -it {}  fabmanager create-admin --app superset'.format(container))
     run('docker exec -it {} superset db upgrade'.format(container))
     run('docker exec -it {} superset init'.format(container))
     run('docker exec -it {} chpro setup_permissions'.format(container))
