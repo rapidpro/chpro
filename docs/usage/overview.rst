@@ -10,6 +10,8 @@ be interested in are those of Superset itself. As such, before using the
 dashboard you should familiarize yourself with the `usage documentation`_
 provided by superset.
 
+.. _permission_overview:
+
 Permissions
 ===========
 
