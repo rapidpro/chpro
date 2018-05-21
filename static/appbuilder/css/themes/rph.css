@@ -24,6 +24,15 @@ body {
 
 .container {
   margin-bottom: 3rem;
+  padding: 0 20px;
+}
+
+.loading-gif {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 50px;
+  opacity: 0.5;
 }
 
 /* LINKS */
@@ -79,14 +88,33 @@ body .help-block {
   color: #324955;
 }
 
+.filters {
+  background-color: var(--color-yellow-light);
+}
+
+.filters .remove-filter {
+  background: white;
+  text-decoration: none;
+}
+
+.filters .remove-filter .close-icon {
+  margin-right: 10px;
+  opacity: 0.75;
+}
+
+.select2-container .select2-choice {
+  padding: 5px 5px;
+  height: 42px;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  top: 7px;
+}
+
 /* NAVBAR */
 .navbar-header {
   /* margin-right: 40px !important; */ /* XXX */
   height: 80px;
-}
-
-.navbar-collapse {
-  padding-top: 26px;
 }
 
 .navbar-nav a {
@@ -140,12 +168,6 @@ body .help-block {
   vertical-align: middle;
 }
 
-/* .navbar-nav .caret,
-.panel-title .caret {
-  margin-top: -24px !important;
-} TODO: This breaks on certain pages/isnt accurate on different pages. Address. */
-
-
 /* DROPDOWNS */
 .dropdown-menu {
   border-color: var(--color-gray-light) !important;
@@ -182,6 +204,10 @@ body .help-block {
 
 .navbar-inverse .navbar-nav > li > a .fa {
   color: var(--color-navy);
+}
+
+.dropdown-toggle.btn .caret {
+  margin-top: -24px;
 }
 
 /* BUTTONS */
@@ -260,10 +286,7 @@ button.close:hover {
 
 .panel b {
   margin: 0;
-}
-
-.panel .tab-pane {
-  padding: 0 2rem;
+  width: 100%;
 }
 
 .panel .tab-pane .panel-title {
@@ -273,6 +296,7 @@ button.close:hover {
 
 .panel .tab-pane .panel {
   margin-bottom: 2rem;
+  padding: 0 2rem;
 }
 
 div.widget .chart-header {
@@ -320,10 +344,10 @@ div.widget .chart-header {
   padding: 0;
 }
 
-.panel-group + .well {
+.panel-group:not(#accordion1) + .well {
   position: relative;
   top: 2rem;
-  margin: 0 -3rem -4rem -3rem;
+  margin: 0 -1rem -4rem -1rem;
   box-shadow: none;
   border: none;
   background: transparent;
@@ -336,6 +360,28 @@ div.widget .chart-header {
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top: none;
+}
+
+.panel-heading + .nav-tabs,
+.panel-heading + .nav-tabs + .tab-content {
+  margin: 0 2rem;
+}
+
+.panel-heading + .nav-tabs + .tab-content .table-responsive {
+  padding: 1rem 0 !important;
+}
+
+.panel-heading + .nav-tabs + .tab-content .table-responsive + .well {
+  margin: 0 -42px -42px -42px;
+}
+
+.panel-heading + .nav-tabs + .tab-content .tab-pane {
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.panel#Home  {
+  padding: 0 !important;
 }
 
 .accordion-toggle + .caret {
@@ -469,6 +515,15 @@ table > thead > tr > td.success a,
   color: var(--color-teal); /* For consistency */
 }
 
+.table tr:empty {
+  display: none;
+}
+
+.table td .alert {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
 .panel-body .table-responsive {
   padding: 0;
 }
@@ -496,7 +551,7 @@ form .table-responsive {
 .list-search-container .btn.dropdown-toggle {
   position: absolute;
   top: -48px;
-  right: 110px;
+  right: -1rem;
   background-color: transparent;
   font-size: 12px;
   color: var(--color-navy);
@@ -507,19 +562,30 @@ form .table-responsive {
 }
 
 .list-container .list-add-action {
-  top: -35px !important;
-  right: 15px !important;
-  display: block;
+  position: relative;
+  top: 4px;
+  left: 0;
 }
 
-.list-container .list-add-action .btn.btn-sm {
+.list-add-action .btn.btn-sm {
+  margin-bottom: 1rem;
+  padding: 5px 10px;
   box-shadow: none;
   border: none;
   border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-.list-container .list-add-action .btn.btn-sm:after {
+.list-add-action .btn.btn-sm:after {
   content: attr(data-original-title);
+}
+
+.list-container .list-add-action.without-count {
+  position: absolute;
+  top: -35px;
+  right: 15px;
+  left: auto;
 }
 
 .list-container .form-actions-container {
@@ -532,12 +598,30 @@ form .table-responsive {
   width: 50%;
 }
 
+.list-container .pagination-container .pagination {
+  margin: 1rem 0;
+}
+
 .list-container .pagination-container {
   margin-top: 2rem;
   padding-top: 0.5rem;
   padding-right: 0;
   padding-bottom: 0;
   font-size: 1.25rem;
+}
+
+.list-container .filter-action {
+  margin: 0 0 3rem 0;
+  padding: 1rem;
+  background-color: var(--color-yellow-light);
+}
+
+.list-container .filters-container table tr:last-child td {
+  border: none;
+}
+
+.list-container .filters td input[type=checkbox] {
+  margin-top: 13px;
 }
 
 .list-container .table-bordered > thead > tr > th,
@@ -626,6 +710,24 @@ form .table-responsive {
   padding-left: 10px;
 }
 
+.slice-cell-highlight {
+  box-shadow: 0 0 20px 5px rgba(0,0,0,0.05) !important;
+}
+
+.table-responsive + .well .btn-primary {
+  float: right;
+  margin-left: 1rem;
+}
+
+/* CHARTS */
+#explore-container,
+.scrollbar-container,
+.scrollbar-content {
+  position: relative !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
 /* SHIMS */
 /* Items to address with dev */
 body .navbar > .container-fluid > .navbar-brand,
@@ -637,7 +739,18 @@ body .navbar .navbar-collapse .navbar-brand {
   border: none;
 }
 
+
 /* Primary Breakpoint */
 @media (min-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
 
+  .list-container .pagination-container .pagination {
+    margin: 0;
+  }
+
+  .navbar-collapse {
+    padding-top: 26px;
+  }
 }
