@@ -15,7 +15,6 @@ from chpro.db import rapidpro
 config = app.config
 celery_app = utils.get_celery_app(config)
 
-
 from flask_script import Command
 
 
@@ -50,7 +49,8 @@ class ImportRapidProData(Command):
 
         conn = engine.connect()
 
-        q = sqla.select([rapidpro.run]).order_by(sqla.desc(rapidpro.run.c[self.order_field]))
+        q = sqla.select([rapidpro.run]).order_by(
+            sqla.desc(rapidpro.run.c[self.order_field]))
         latest_run = conn.execute(q).first()
 
         extras = {}
@@ -62,9 +62,11 @@ class ImportRapidProData(Command):
         if before:
             extras['before'] = parser.parse(before)
 
-        print(f"Fetching runs between {extras.get('after')} and {extras.get('before')}")
+        print(
+            f"Fetching runs between {extras.get('after')} and {extras.get('before')}")
 
-        batches = client.get_runs(flow='7a376c32-fc78-49c9-b200-2f462efb7b10', **extras)\
+        batches = client.get_runs(flow='7a376c32-fc78-49c9-b200-2f462efb7b10',
+                                  **extras) \
             .iterfetches(retry_on_rate_exceed=True)
 
         cols = [i.key for i in rapidpro.run.columns]
@@ -74,26 +76,28 @@ class ImportRapidProData(Command):
             for run in batch:
                 data = run.serialize()
                 print(f'Importing Run {data["id"]}')
-                insert = rapidpro.run.insert().values(**{c: process_column(rapidpro.run, data, c) for c in cols})
+                insert = rapidpro.run.insert().values(
+                    **{c: process_column(rapidpro.run, data, c) for c in cols})
                 try:
                     conn.execute(insert)
                 except Exception as e:
                     print(f'Error during: {e.orig}')
 
+
 EDITOR_SQL = '''
 -- adds SQL Lab permissions
-insert ignore into ab_permission_view_role (permission_view_id, role_id)
+replace into ab_permission_view_role (permission_view_id, role_id)
   select apv.id, ar.id from ab_permission_view as apv
   inner join ab_role as ar on ar.name = "Editor"
   where apv.id in (select permission_view_id from ab_permission_view_role where role_id = (select id from ab_role where name = "sql_lab"));
-  
+
 -- adds Manage Viewers permissions
-insert ignore into ab_permission_view_role (permission_view_id, role_id)
+replace into ab_permission_view_role (permission_view_id, role_id)
   select apv.id, ar.id from ab_permission_view as apv
   inner join ab_role as ar on ar.name = "Editor"
     where permission_id in (select id from ab_permission where name in ('can_add', 'can_download', 'can_edit', 'can_list', 'can_show', 'can_delete', 'muldelete', 'mulexport'))
       and
-    view_menu_id = (select id from ab_view_menu where name = "Manage Viewers")  
+    view_menu_id = (select id from ab_view_menu where name = "Manage Viewers");
 '''
 
 VIEWER_SQL = '''
@@ -133,6 +137,7 @@ insert ignore into ab_permission_view_role (permission_view_id, role_id)
     view_menu_id = (select id from ab_view_menu where name = 'all_datasource_access');
 '''
 
+
 class SetupPermissions(Command):
     """Programatically setup the chpro permissions"""
 
@@ -140,27 +145,30 @@ class SetupPermissions(Command):
         session = db.session()
 
         # Editor
-        alpha = session.query(Role).filter(Role.name=='Alpha')[0]
-        new_role = Role()
-        new_role.name = 'Editor'
-        new_role.permissions = alpha.permissions
+        alpha = session.query(Role).filter(Role.name == 'Alpha').first()
+        editor = session.query(Role).filter(Role.name == 'Editor').first()
+        if not editor:
+            editor = Role()
+        editor.name = 'Editor'
+        editor.permissions = alpha.permissions
         print('\nCopying Alpha role to Editor...')
-        SQLAInterface(Role, session).add(new_role)
+        SQLAInterface(Role, session).add(editor)
         print('Generating custom Editor permissions from SQL...')
         db.engine.execute(EDITOR_SQL)
         print('Editor role created successfully.\n')
 
         # Viewer
-        gamma = session.query(Role).filter(Role.name=='Gamma')[0]
-        new_role = Role()
-        new_role.name = 'Viewer'
-        new_role.permissions = alpha.permissions
+        gamma = session.query(Role).filter(Role.name == 'Gamma').first()
+        viewer = session.query(Role).filter(Role.name == 'Viewer').first()
+        if not viewer:
+            viewer = Role()
+        viewer.name = 'Viewer'
+        viewer.permissions = gamma.permissions
         print('Copying Gamma role to Viewer...')
-        SQLAInterface(Role, session).add(new_role)
+        SQLAInterface(Role, session).add(viewer)
         print('Generating custom Viewer permissions from SQL...')
         db.engine.execute(VIEWER_SQL)
         print('Viewer role created successfully.')
-
 
 
 class CustomPostInstallFixes(Command):
@@ -176,4 +184,3 @@ manager = Manager(app)
 manager.add_command('import_rapidpro_data', ImportRapidProData())
 manager.add_command('custom_post_install_fixes', CustomPostInstallFixes())
 manager.add_command('setup_permissions', SetupPermissions())
-
