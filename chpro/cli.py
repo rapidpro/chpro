@@ -82,13 +82,13 @@ class ImportRapidProData(Command):
 
 EDITOR_SQL = '''
 -- adds SQL Lab permissions
-insert into ab_permission_view_role (permission_view_id, role_id)
+insert ignore into ab_permission_view_role (permission_view_id, role_id)
   select apv.id, ar.id from ab_permission_view as apv
   inner join ab_role as ar on ar.name = "Editor"
   where apv.id in (select permission_view_id from ab_permission_view_role where role_id = (select id from ab_role where name = "sql_lab"));
   
 -- adds Manage Viewers permissions
-insert into ab_permission_view_role (permission_view_id, role_id)
+insert ignore into ab_permission_view_role (permission_view_id, role_id)
   select apv.id, ar.id from ab_permission_view as apv
   inner join ab_role as ar on ar.name = "Editor"
     where permission_id in (select id from ab_permission where name in ('can_add', 'can_download', 'can_edit', 'can_list', 'can_show', 'can_delete', 'muldelete', 'mulexport'))
@@ -125,7 +125,7 @@ delete from ab_permission_view_role where permission_view_id in (select id from 
 delete from ab_permission_view_role where permission_view_id in (select id from ab_permission_view where permission_id = (select id from ab_permission where name = "muldelete")) and role_id = (select id from ab_role where name = "Viewer");
 
 -- add data access
-insert into ab_permission_view_role (permission_view_id, role_id)
+insert ignore into ab_permission_view_role (permission_view_id, role_id)
   select apv.id, ar.id from ab_permission_view as apv
   inner join ab_role as ar on ar.name = "Viewer"
     where permission_id = (select id from ab_permission where name = 'all_datasource_access')

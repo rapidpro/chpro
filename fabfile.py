@@ -97,11 +97,12 @@ def bootstrap():
 
     # ToDo: Should we just use the user param here?
     # ToDo: should we use put() instead of git? We need the network anyway to get docker
-    sudo('sudo -u chpro git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
+    sudo('su - chpro -c "git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro"')
     sudo('/home/chpro/chpro/ops/scripts/get-docker.sh')
     sudo('sudo usermod -aG docker chpro')
+
     # ToDo: Add option to bootstrap a server that will join an existing swarm
-    sudo('docker swarm init')
+    sudo('docker swarm init --advertise-addr {}'.format(env.host))
     if console.confirm('You will need secrets for the application to run. '
                        'Do you wish to generate them?'):
         prompt_for_secrets()
@@ -184,33 +185,33 @@ def initialize(create_admin=False):
 
 
 @task
-@roles('staging')
 def deploy(first_time=False):
-    build_image()
-    export_image()
+    with settings(user='chpro'):
+        build_image()
+        export_image()
 
-    # Upload the latest image
-    put('chpro.tar.gz', '')
-    run('gunzip -c chpro.tar.gz | docker load ')
+        # Upload the latest image
+        put('chpro.tar.gz', '')
+        run('gunzip -c chpro.tar.gz | docker load ')
 
-    # Update the config if necessary
-    with cd('chpro'):
-        run('git pull')  # ToDo: Should we consider a missing outside network here?
-        run('docker stack deploy -c ops/production.yml production')
+        # Update the config if necessary
+        with cd('/home/chpro/chpro'):
+            run('git pull')  # ToDo: Should we consider a missing outside network here?
+            run('docker stack deploy -c ops/production.yml production')
 
-    # Update the app
-    run('docker service update production_chpro --force')
+        # Update the app
+        run('docker service update production_chpro --force')
 
-    if first_time:
-        if console.confirm('Do you wish to initialize the database? If you '
-                           'choose not to do this, the application will not '
-                           'run and you will need to initialize the DB '
-                           'manually', default=True):
-            initialize(create_admin=True)
-    else:
-        # Newer versions of superset may require a db upgrade
-        run('docker exec -it {} superset db upgrade'.format(get_app_container()))
+        if first_time:
+            if console.confirm('Do you wish to initialize the database? If you '
+                               'choose not to do this, the application will not '
+                               'run and you will need to initialize the DB '
+                               'manually', default=True):
+                initialize(create_admin=True)
+        else:
+            # Newer versions of superset may require a db upgrade
+            run('docker exec -it {} superset db upgrade'.format(get_app_container()))
 
-    # Cleanup
-    run('rm chpro.tar.gz')
-    local('rm chpro.tar.gz')
+        # Cleanup
+        run('rm chpro.tar.gz')
+        local('rm chpro.tar.gz')
