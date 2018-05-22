@@ -1,11 +1,13 @@
 import itertools
+import time
 
 from fabric.api import *
 from fabric.contrib import files, console
 
+# ToDo: Define hosts externally
 env.roledefs = {
     'local': ['localhost'],
-    'staging': ['chpro@46.101.31.170'],
+    'swarm_managers': ['chpro@46.101.31.170', 'chpro@178.62.122.53'],
 }
 
 role_map = {}
@@ -110,7 +112,6 @@ def bootstrap():
 
     if console.confirm('Do you wish to deploy the application on the server right now?'):
         deploy(first_time=True)
-        # ToDo: Change these strings to use the chpro user.
         print('''
         The server has been successfully bootstrapped and deployed.
         
@@ -141,9 +142,20 @@ def bootstrap():
 
 
 @task
+def apprun(command):
+    print('\n\n--------')
+    with settings(output_prefix=False, remote_interrupt=True):
+        open_shell("docker exec -it {container} bash -c '{command}'".format(
+            command=command,
+            container=get_app_container()
+        ))
+    print('--------\n\n')
+
+
+@task
 def mysql():
-    with settings(output_prefix=False):
-        run("docker exec -it {container} bash -c 'mysql --user={user} --password=\"$(cat /run/secrets/{secret})\"'".format(
+    with settings(output_prefix=False, remote_interrupt=True):
+        open_shell("docker exec -it {container} bash -c 'mysql --user={user} --password=\"$(cat /run/secrets/{secret})\"'; exit".format(
             user='superset',
             secret='MYSQL_PASSWORD',
             container=get_db_container()
@@ -151,14 +163,11 @@ def mysql():
 
 
 @task
-def apprun(command):
-    print('\n\n--------')
+def bash():
     with settings(output_prefix=False, remote_interrupt=True):
-        run("docker exec -it {container} bash -c '{command}'".format(
-            command=command,
+        open_shell("docker exec -it {container} bash; exit".format(
             container=get_app_container()
         ))
-    print('--------\n\n')
 
 
 @task
@@ -186,33 +195,32 @@ def initialize(create_admin=False):
 
 
 @task
+@with_settings(user='chpro')
 def deploy(first_time=False):
-    with settings(user='chpro'):
-        build_image()
-        export_image()
+    build_image()
+    export_image()
 
-        # Upload the latest image
-        put('chpro.tar.gz', '')
-        run('gunzip -c chpro.tar.gz | docker load ')
+    # Upload the latest image
+    put('chpro.tar.gz', '')
+    run('gunzip -c chpro.tar.gz | docker load ')
 
-        # Update the config if necessary
-        with cd('/home/chpro/chpro'):
-            run('git pull')  # ToDo: Should we consider a missing outside network here?
-            run('docker stack deploy -c ops/production.yml production')
+    # Update the config if necessary
+    with cd('/home/chpro/chpro'):
+        run('git pull')  # ToDo: Should we consider a missing outside network here?
+        run('docker stack deploy -c ops/production.yml production')
 
+    if first_time:
+        if console.confirm('Do you wish to initialize the database? If you '
+                           'choose not to do this, the application will not '
+                           'run and you will need to initialize the DB '
+                           'manually', default=True):
+            initialize(create_admin=True)
+    else:
         # Update the app
-        run('docker service update production_chpro --force')
+        run('docker service update production_chpro --force -q')
+        # Newer versions of superset may require a db upgrade
+        run('docker exec -it {} superset db upgrade'.format(get_app_container()))
 
-        if first_time:
-            if console.confirm('Do you wish to initialize the database? If you '
-                               'choose not to do this, the application will not '
-                               'run and you will need to initialize the DB '
-                               'manually', default=True):
-                initialize(create_admin=True)
-        else:
-            # Newer versions of superset may require a db upgrade
-            run('docker exec -it {} superset db upgrade'.format(get_app_container()))
-
-        # Cleanup
-        run('rm chpro.tar.gz')
-        local('rm chpro.tar.gz')
+    # Cleanup
+    run('rm chpro.tar.gz')
+    local('rm chpro.tar.gz')
