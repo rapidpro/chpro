@@ -14,7 +14,18 @@ Table of contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Overview
+   :caption: Using the Dasboard
+
+   usage/overview
+   usage/importing_csv
+   usage/importing_sql
+   usage/importing_rapidpro_data
+   usage/managing_viewers
+   usage/external_db
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Technical Overview
 
    overview/architecture
    overview/infrastructure

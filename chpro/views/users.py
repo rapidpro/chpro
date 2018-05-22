@@ -1,9 +1,9 @@
 from flask_appbuilder.models.sqla.interface import SQLAInterface
-from flask_appbuilder.security.sqla.models import User
-from flask_appbuilder.security.views import UserModelView
+from flask_appbuilder.security.sqla.models import User, Role
+from flask_appbuilder.security.views import UserDBModelView
 from flask_babel import lazy_gettext as _
 
-from superset import app, appbuilder
+from superset import db, appbuilder
 from werkzeug.exceptions import abort
 
 
@@ -11,10 +11,11 @@ class FilteredSQLAInterface(SQLAInterface):
     def _get_base_query(self, query=None, filters=None, order_column='', order_direction=''):
         base = super()._get_base_query(query=query, filters=filters,
                                        order_column=order_column, order_direction=order_direction)
+        # Note: At least one viewer must exist for this to work
         return base.filter(User.roles.any(name='Viewer'))
 
 
-class EditorUserView(UserModelView):
+class EditorUserView(UserDBModelView):
     datamodel = FilteredSQLAInterface(User)
     route_base = '/eusers'
 
