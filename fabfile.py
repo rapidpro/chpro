@@ -44,7 +44,8 @@ def generate_secret(key=None, value=None):
         local('echo "{}" > ops/secrets/{}'.format(value, key))
         return
 
-    sudo('echo {} | docker secret create {} -'.format(value, key), user='chpro')
+    with settings(user='chpro'):
+        run('echo {} | docker secret create {} -'.format(value, key))
 
 
 
@@ -79,12 +80,12 @@ def bootstrap():
     can_login = False
     if console.confirm('Do you wish to add an authorized ssh key for the '
                        'chpro user?', default=False):
-        sudo('sudo -u chpro -- mkdir -p /home/chpro/.ssh')  # ToDo: Should we just use the user param here?
-        files.append(
-            '/home/chpro/.ssh/authorized_keys',
-            prompt('Please paste the desired ssh public key (i.e. ~/.ssh/id_rsa.pub):'),
-            use_sudo=True
-        )
+        with settings(user='chpro'):
+            run('mkdir -p /home/chpro/.ssh')
+            files.append(
+                '/home/chpro/.ssh/authorized_keys',
+                prompt('Please paste the desired ssh public key (i.e. ~/.ssh/id_rsa.pub):'),
+            )
         can_login = True
     if not can_login:
         if console.confirm('Do you wish to add password for the '
@@ -95,11 +96,11 @@ def bootstrap():
         raise Exception('You will not be able to login as the chpro user. '
                         'Make sure to provide a password or a ssh key')
 
-    # ToDo: Should we just use the user param here?
-    # ToDo: should we use put() instead of git? We need the network anyway to get docker
-    sudo('su - chpro -c "git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro"')
+    with settings(user='chpro'):
+        # ToDo: should we use put() instead of git? We need the network anyway to get docker
+        run('git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
     sudo('/home/chpro/chpro/ops/scripts/get-docker.sh')
-    sudo('sudo usermod -aG docker chpro')
+    sudo('usermod -aG docker chpro')
 
     # ToDo: Add option to bootstrap a server that will join an existing swarm
     sudo('docker swarm init --advertise-addr {}'.format(env.host))
@@ -117,10 +118,10 @@ def bootstrap():
 
         env.roledefs = {
         'local': ['localhost'],
-        'some_environment': ['{}']  # <-- Like this
+        'some_environment': ['chpro@{}']  # <-- Like this
         'staging': ['chpro@46.101.31.170'],
         }        
-        '''.format(env.hosts[0]))
+        '''.format(env.host))
     else:
         print('''
         The server has been successfully bootstrapped and it's ready for a deployment.
@@ -129,14 +130,14 @@ def bootstrap():
         
         env.roledefs = {
         'local': ['localhost'],
-        'some_environment': ['{}']  # <-- Like this
+        'some_environment': ['chpro@{}']  # <-- Like this
         'staging': ['chpro@46.101.31.170'],
         }
     
         and then run a deploy for that environment:
         
         $ fab -R some_environment deploy     
-        '''.format(env.hosts[0]))
+        '''.format(env.host))
 
 
 @task
