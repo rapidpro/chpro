@@ -277,6 +277,10 @@ button.close:hover {
   color: #FFF;
 }
 
+.nav-tabs > li > a:hover .caret {
+  color: #FFF;
+}
+
 /* PANELS */
 .panel {
   margin-bottom: 0;
@@ -675,6 +679,11 @@ form .table-responsive {
   padding-bottom: 1.5rem;
 }
 
+#a11y-query-editor-tabs .fa-plus-circle:before {
+    content: "\f067";
+    font-size: 1.25rem;
+}
+
 /* VARIOUS COMPONENTS */
 .reactable-header-sortable::before {
   top: 12px;
@@ -752,5 +761,15 @@ body .navbar .navbar-collapse .navbar-brand {
 
   .navbar-collapse {
     padding-top: 26px;
+  }
+}
+
+/* Tablet to Desktop Breakpoint */
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar-inverse .navbar-nav > li > a,
+  .dropdown-menu > li > a {
+    font-size: 1.15rem;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }
