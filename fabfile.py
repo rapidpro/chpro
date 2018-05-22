@@ -33,7 +33,7 @@ def get_app_container():
     if 'local' in env.roles:
         return 'chpro-app'
     else:
-        return run('docker ps -f name=production_chpro.1 -q')
+        return run("docker ps -f name=production_chpro.1 --format '{{.CreatedAt}} *{{.ID}}' -q | sort -r | cut -d '*' -f 2").split()[0]
 
 
 @task
@@ -83,11 +83,12 @@ def bootstrap():
     can_login = False
     if console.confirm('Do you wish to add an authorized ssh key for the '
                        'chpro user?', default=False):
-        with settings(user='chpro'):
-            run('mkdir -p /home/chpro/.ssh')
+        run('sudo -u chpro -i mkdir -p /home/chpro/.ssh')
+        with settings(sudo_prefix="sudo -u chpro -i -p '%(sudo_prompt)s' " % env):
             files.append(
                 '/home/chpro/.ssh/authorized_keys',
                 prompt('Please paste the desired ssh public key (i.e. ~/.ssh/id_rsa.pub):'),
+                use_sudo=True
             )
         can_login = True
     if not can_login:
@@ -99,9 +100,8 @@ def bootstrap():
         raise Exception('You will not be able to login as the chpro user. '
                         'Make sure to provide a password or a ssh key')
 
-    with settings(user='chpro'):
-        # ToDo: should we use put() instead of git? We need the network anyway to get docker
-        run('git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
+    # ToDo: should we use put() instead of git? We need the network anyway to get docker
+    run('sudo -u chpro -i git clone https://github.com/rapidpro/chpro.git /home/chpro/chpro')
     sudo('/home/chpro/chpro/ops/scripts/get-docker.sh')
     sudo('usermod -aG docker chpro')
 
@@ -224,4 +224,3 @@ def deploy(first_time=False):
 
     # Cleanup
     run('rm chpro.tar.gz')
-    local('rm chpro.tar.gz')
