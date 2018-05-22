@@ -72,9 +72,10 @@ def prompt_for_secrets():
 
 @task
 def bootstrap():
-    if env.host in itertools.chain.from_iterable(env.roledefs.values()):
+    if env.host in [i.strip('chpro@') for i in itertools.chain.from_iterable(env.roledefs.values())]:
         raise Exception('Host is already defined in a role. Bootstrap should '
                         'only be used on new hosts.')
+
     # Create the chpro user
     sudo('id -u chpro &>/dev/null || adduser --disabled-password --gecos "" --quiet chpro')
     sudo('usermod -aG sudo chpro')
@@ -117,11 +118,11 @@ def bootstrap():
         
         To continue managing the server via fabric, make sure to add a role definition for it, i.e.:
 
-        env.roledefs = {
+        env.roledefs = {{
         'local': ['localhost'],
         'some_environment': ['chpro@{}']  # <-- Like this
         'staging': ['chpro@46.101.31.170'],
-        }        
+        }}        
         '''.format(env.host))
     else:
         print('''
@@ -129,15 +130,15 @@ def bootstrap():
         
         To do this, please add a role for the server i.e.:
         
-        env.roledefs = {
+        env.roledefs = {{
         'local': ['localhost'],
-        'some_environment': ['chpro@{}']  # <-- Like this
+        'swarm_managers': ['chpro@{}']  # <-- Like this
         'staging': ['chpro@46.101.31.170'],
-        }
+        }}
     
         and then run a deploy for that environment:
         
-        $ fab -R some_environment deploy     
+        $ fab -R swarm_managers deploy     
         '''.format(env.host))
 
 
