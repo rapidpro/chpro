@@ -1,3 +1,4 @@
+import sqlalchemy
 import sqlalchemy as sqla
 
 from dateutil import parser
@@ -7,7 +8,8 @@ from flask_script import Manager, Option
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 
 from superset import app, utils, db
-from superset_config import RAPIDPRO_API_KEY, SQLALCHEMY_DATABASE_URI
+from superset_config import RAPIDPRO_API_KEY, SQLALCHEMY_DATABASE_URI, \
+    SQLALCHEMY_ROOT_DATABASE_URI
 
 from temba_client.v2 import TembaClient
 from chpro.db import rapidpro
@@ -169,6 +171,16 @@ class SetupPermissions(Command):
         print('Generating custom Viewer permissions from SQL...')
         db.engine.execute(VIEWER_SQL)
         print('Viewer role created successfully.')
+
+        engine = sqlalchemy.create_engine(SQLALCHEMY_ROOT_DATABASE_URI)
+        root_conn = engine.raw_connection()
+        with root_conn.cursor() as cursor:
+            print('\nGranting all privileges to the superset db user...')
+            grant = '''
+            GRANT ALL PRIVILEGES ON *.* TO 'superset'@'%';
+            FLUSH PRIVILEGES;
+            '''
+            cursor.execute(grant)
 
 
 class CustomPostInstallFixes(Command):

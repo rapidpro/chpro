@@ -34,8 +34,6 @@ class LoadSQL(SimpleFormView):
     form_title = _('Database creation')
     add_columns = ['database', 'schema', 'table_name']
 
-
-
     def form_get(self, form):
         # Explicitly checking "Admin" permissions
         if 'Admin' not in [i.name for i in g.user.roles]:
@@ -57,7 +55,6 @@ class LoadSQL(SimpleFormView):
             conn = engine.raw_connection()
             with conn.cursor() as cursor:
                 cursor.execute(f"create database {form.db_name.data}")
-                cursor.execute(f"GRANT ALL PRIVILEGES ON {form.db_name.data}.* TO 'superset';")
                 cursor.execute(f"use {form.db_name.data}")
                 contents = sql_file.stream.read()
                 commands = contents.decode().split(';\n')
