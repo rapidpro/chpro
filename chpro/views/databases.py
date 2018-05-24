@@ -57,6 +57,7 @@ class LoadSQL(SimpleFormView):
             conn = engine.raw_connection()
             with conn.cursor() as cursor:
                 cursor.execute(f"create database {form.db_name.data}")
+                cursor.execute(f"GRANT ALL PRIVILEGES ON {form.db_name.data}.* TO 'superset';")
                 cursor.execute(f"use {form.db_name.data}")
                 contents = sql_file.stream.read()
                 commands = contents.decode().split(';\n')
