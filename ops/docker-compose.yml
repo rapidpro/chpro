@@ -10,6 +10,7 @@ services:
        MYSQL_USER: superset
        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
        MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
+       MYSQL_ROOT_HOST: '%'
      volumes:
        - db_data:/var/lib/mysql
        - ./ops/secrets:/run/secrets  # Manually mounting the secrets

@@ -11,6 +11,7 @@ services:
        MYSQL_USER: superset
        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
        MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
+       MYSQL_ROOT_HOST: '%'
      secrets:
        - MYSQL_ROOT_PASSWORD
        - MYSQL_PASSWORD

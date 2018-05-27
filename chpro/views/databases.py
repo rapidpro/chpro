@@ -34,8 +34,6 @@ class LoadSQL(SimpleFormView):
     form_title = _('Database creation')
     add_columns = ['database', 'schema', 'table_name']
 
-
-
     def form_get(self, form):
         # Explicitly checking "Admin" permissions
         if 'Admin' not in [i.name for i in g.user.roles]:

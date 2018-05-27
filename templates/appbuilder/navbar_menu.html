@@ -7,6 +7,8 @@
 {% endmacro %}
 
 {% for item1 in menu.get_list() %}
+    {% if item1.name == 'Manage Viewers' and not is_editor %}
+    {% else %}
     {% if item1 | is_menu_visible %}
         {% if item1.childs %}
             <li class="dropdown">
@@ -33,6 +35,7 @@
                 {{ menu_item(item1) }}
             </li>
         {% endif %}
+    {% endif %}
     {% endif %}
 {% endfor %}
 
