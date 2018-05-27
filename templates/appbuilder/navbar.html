@@ -10,11 +10,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/superset/profile/{{ current_user.username }}/">
-        <img
-          src="/static/img/logo.svg"
-          width="140"
-          alt="{{ appbuilder.app_name }}" />
+      <a href="/superset/profile/{{ current_user.username }}/" class="navbar-brand">
+        <img src="/static/assets/images/logo.svg" alt="{{ appbuilder.app_name }}" class="hidden-sm" />
+        <img src="/static/assets/images/logo-icon.svg" alt="{{ appbuilder.app_name }}" class="visible-sm-block" />
       </a>
     </div>
     <div class="navbar-collapse collapse">

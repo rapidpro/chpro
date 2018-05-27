@@ -112,9 +112,12 @@ body .help-block {
 }
 
 /* NAVBAR */
-.navbar-header {
-  /* margin-right: 40px !important; */ /* XXX */
-  height: 80px;
+.navbar-brand {
+  width: 130px;
+}
+
+.navbar-brand img {
+  width: 100%;
 }
 
 .navbar-nav a {
@@ -758,18 +761,42 @@ body .navbar .navbar-collapse .navbar-brand {
   .list-container .pagination-container .pagination {
     margin: 0;
   }
-
-  .navbar-collapse {
-    padding-top: 26px;
-  }
 }
 
 /* Tablet to Desktop Breakpoint */
 @media (min-width: 768px) and (max-width: 991px) {
   .navbar-inverse .navbar-nav > li > a,
   .dropdown-menu > li > a {
-    font-size: 1.15rem;
-    padding-right: 10px;
-    padding-left: 10px;
+    font-size: 1.25rem;
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+
+  .navbar-inverse .navbar-nav > li > a .fa,
+  .dropdown-menu > li > a .fa {
+    margin-right: 0.4rem;
+    font-size: 1rem;
+  }
+
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    width: 35px;
+  }
+}
+
+/*  Desktop Breakpoint */
+@media (min-width: 992px) {
+  .navbar-collapse {
+    padding-top: 26px;
+  }
+
+  .navbar-header {
+    height: 80px;
+  }
+
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: -5px;
+    width: 135px;
   }
 }
