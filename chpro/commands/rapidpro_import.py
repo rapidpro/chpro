@@ -21,7 +21,9 @@ def process_column(table, data, name):
             return
 
     try:
-        data[name]
+        if data[name] is None:
+            print(f'Warning: Key missing: {name}')
+            return
     except KeyError:
         print(f'Warning: Key missing: {name}')
         return
