@@ -47,7 +47,8 @@ class ImportRapidProRun(Command):
 
     def run(self, flow, after, before):
         client = TembaClient('rapidpro.io', RAPIDPRO_API_KEY)
-        engine = sqla.create_engine(SQLALCHEMY_DATABASE_URI)
+        engine = sqla.create_engine(SQLALCHEMY_DATABASE_URI,
+                                    encoding='utf8')
 
         if not engine.dialect.has_table(engine, rapidpro.run.name):
             rapidpro.run.create(engine)
