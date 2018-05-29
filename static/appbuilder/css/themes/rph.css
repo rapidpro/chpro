@@ -678,13 +678,22 @@ form .table-responsive {
 }
 
 #a11y-query-editor-tabs .panel .SouthPane .tab-pane {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding: 1rem;
 }
 
 #a11y-query-editor-tabs .fa-plus-circle:before {
-    content: "\f067";
-    font-size: 1.25rem;
+  content: "\f067";
+  font-size: 1.25rem;
+}
+
+.ResultSetControls {
+  padding-bottom: 10px !important;
+}
+
+.ResultSetControls .btn-group .btn:first-child {
+  font-weight: bold;
+  background-color: var(--color-yellow);
+  color: var(--color-navy);
 }
 
 /* VARIOUS COMPONENTS */
