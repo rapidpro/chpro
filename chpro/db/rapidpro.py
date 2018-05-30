@@ -2,13 +2,23 @@ from sqlalchemy import MetaData, Table, Column, types
 
 metadata = MetaData()
 
-# ToDo: Consider adding migrations
+# Migrations are not currently available for rapidpro tables.
+# If you modify these tables, make sure to migrate the databases
+# manually or to add a command to do it.
+
 contact = Table('rapidpro_contact', metadata,
-                Column('id', types.Integer, primary_key=True),
                 Column('uuid', types.String(64)),
                 Column('name', types.String(128)),
                 Column('groups', types.JSON),
+                Column('urns', types.JSON),
+                Column('fields', types.JSON),
+
+                Column('blocked', types.Boolean),
+                Column('stopped', types.Boolean),
+                Column('created_on', types.DateTime),
+                Column('modified_on', types.DateTime),
                 )
+
 
 run = Table('rapidpro_run', metadata,
             Column('id', types.Integer, primary_key=True),

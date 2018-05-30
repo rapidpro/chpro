@@ -22,6 +22,7 @@ Table of contents
    usage/importing_rapidpro_data
    usage/managing_viewers
    usage/external_db
+   usage/linking_dashboards
 
 .. toctree::
    :maxdepth: 1
@@ -40,7 +41,6 @@ Table of contents
    guides/writing_cli_commands
    guides/interacting_with_docker
    guides/using_the_fabric_shortcuts
-   guides/importing_rapidpro_data
 
 .. toctree::
    :maxdepth: 2
