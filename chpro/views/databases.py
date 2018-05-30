@@ -79,3 +79,19 @@ class LoadSQL(SimpleFormView):
 appbuilder.add_view(LoadSQL, 'LoadSQL',
                     category='Sources',
                     icon='fa-upload',)
+
+# Reorganize Sources.
+# Move UploadCSV to the end
+menu = appbuilder.menu.menu[2]
+i = [x.name for x in menu.childs].index('Upload a CSV')
+csv = appbuilder.menu.menu[2].childs.pop(i)
+appbuilder.menu.menu[2].childs.append(csv)
+# Remove double hyphen
+for i in range(1, len(menu.childs)):
+    if menu.childs[i-1].name == '-' and menu.childs[i].name == '-':
+        menu.childs.pop(i-1)
+        menu.childs.pop(i-1)
+        break
+# Change table icon
+i = [x.name for x in menu.childs].index('Tables')
+appbuilder.menu.menu[2].childs[i].icon = 'fa-table'
