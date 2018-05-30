@@ -11,8 +11,11 @@ class FilteredSQLAInterface(SQLAInterface):
     def _get_base_query(self, query=None, filters=None, order_column='', order_direction=''):
         base = super()._get_base_query(query=query, filters=filters,
                                        order_column=order_column, order_direction=order_direction)
-        # Note: At least one viewer must exist for this to work
-        return base.filter(User.roles.any(name='Viewer'))
+        if self.obj._sa_class_manager.class_ == Role:
+            return base.filter(Role.name=='Viewer')
+        elif self.obj._sa_class_manager.class_ == User:
+            return base.filter(User.roles.any(name='Viewer'))
+        return base
 
 
 class EditorUserView(UserDBModelView):
