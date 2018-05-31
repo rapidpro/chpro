@@ -11,15 +11,19 @@
   --color-gray: #818181;
   --color-gray-light: #C5C5C5;
 
+  --color-primary: var(--color-pink); /* Bright color for buttons, links, etc */
+  --color-secondary: var(--color-navy); /* Muted color for text in some areas */
+  --color-background: var(--color-yellow-light); /* Background color of application */
+
   --header-font: 'Titillium Web', Helvetica, sans-serif;
   --body-font: 'Open Sans', Helvetica, sans-serif;
   --weight-bold: 700;
 }
 
 body {
-  background-color: var(--color-yellow-light);
+  background-color: var(--color-background);
   font-family: var(--body-font);
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .container {
@@ -37,7 +41,7 @@ body {
 
 /* LINKS */
 body a {
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 td a {
@@ -89,7 +93,7 @@ body .help-block {
 }
 
 .filters {
-  background-color: var(--color-yellow-light);
+  background-color: var(--color-background);
 }
 
 .filters .remove-filter {
@@ -162,7 +166,7 @@ body .help-block {
 .navbar-inverse .navbar-nav > li > a:focus,
 .navbar-inverse .navbar-nav > li.active > a {
   margin-bottom: 0;
-  box-shadow: inset 0 -3px 0 var(--color-pink);
+  box-shadow: inset 0 -3px 0 var(--color-primary);
   border: none;
 }
 
@@ -183,7 +187,7 @@ body .help-block {
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-  background: var(--color-pink);
+  background: var(--color-primary);
 }
 
 .dropdown-menu > li > a:hover .fa,
@@ -206,7 +210,7 @@ body .help-block {
 }
 
 .navbar-inverse .navbar-nav > li > a .fa {
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .dropdown-toggle.btn .caret {
@@ -218,7 +222,7 @@ a.btn-primary,
 input.btn-primary,
 button.btn-primary {
   border: none;
-  background-color: var(--color-pink);
+  background-color: var(--color-primary);
 }
 
 a.btn-primary:hover,
@@ -229,7 +233,7 @@ button.btn-primary:hover {
 }
 
 button.close {
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 button.close:hover {
@@ -260,8 +264,8 @@ button.close:hover {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   border: 1px solid var(--color-beige);
-  border-top: 2px solid var(--color-navy);
-  color: var(--color-navy);
+  border-top: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
   border-bottom-color: transparent;
 }
 
@@ -271,12 +275,12 @@ button.close:hover {
 
 .nav-tabs > li > a {
   border: none;
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .nav-tabs > li > a:hover {
   border: none;
-  background: var(--color-navy);
+  background: var(--color-secondary);
   color: #FFF;
 }
 
@@ -324,13 +328,13 @@ div.widget .chart-header {
   font-family: var(--header-font);
   font-size: 18px;
   font-weight: var(--weight-bold);
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .panel-title .caret {
   display: inline-block;
   margin-top: -32px;
-  color: var(--color-navy);
+  color: var(--color-secondary);
   opacity: 0.75;
 }
 
@@ -428,7 +432,7 @@ div.widget .chart-header {
 }
 
 .table .success {
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .table > tbody + tbody,
@@ -450,7 +454,7 @@ table > thead > tr > td.success,
 .table > tbody > tr.success > th,
 .table > tfoot > tr.success > th {
   background-color: var(--color-beige);
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 table > thead > tr > td.success a,
@@ -465,7 +469,7 @@ table > thead > tr > td.success a,
 .table > thead > tr.success > th a,
 .table > tbody > tr.success > th a,
 .table > tfoot > tr.success > th a {
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .table-hover > tbody > tr:hover {
@@ -561,7 +565,7 @@ form .table-responsive {
   right: -1rem;
   background-color: transparent;
   font-size: 12px;
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 .list-container.panel-body {
@@ -620,7 +624,7 @@ form .table-responsive {
 .list-container .filter-action {
   margin: 0 0 3rem 0;
   padding: 1rem;
-  background-color: var(--color-yellow-light);
+  background-color: var(--color-background);
 }
 
 .list-container .filters-container table tr:last-child td {
@@ -693,7 +697,7 @@ form .table-responsive {
 .ResultSetControls .btn-group .btn:first-child {
   font-weight: bold;
   background-color: var(--color-yellow);
-  color: var(--color-navy);
+  color: var(--color-secondary);
 }
 
 /* VARIOUS COMPONENTS */
@@ -709,7 +713,7 @@ form .table-responsive {
 /* DASHBOARD */
 .fave-unfave-icon .fa {
   margin-left: 1rem;
-  color: var(--color-pink);
+  color: var(--color-primary);
 }
 
 .editable-title,

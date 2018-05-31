@@ -6,7 +6,7 @@ Chpro's documentation!
 
 This documentation is intended for developers and administrators. If you're
 new to the project, it's advised you familiarize yourself with the architecture
-documentation
+documentation.
 
 =================
 Table of contents
@@ -14,7 +14,7 @@ Table of contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Using the Dasboard
+   :caption: Using the Dashboard
 
    usage/overview
    usage/importing_csv
@@ -41,6 +41,7 @@ Table of contents
    guides/writing_cli_commands
    guides/interacting_with_docker
    guides/using_the_fabric_shortcuts
+   guides/working_with_styles_theming
 
 .. toctree::
    :maxdepth: 2
@@ -76,4 +77,3 @@ Indices and tables
 * :ref:`search`
 
 .. * :ref:`modindex`
-
