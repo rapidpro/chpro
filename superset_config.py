@@ -19,6 +19,8 @@ RAPIDPRO_API_KEY = get_secret('RAPIDPRO_API_KEY')
 APP_NAME = "RapidPro"
 APP_THEME = "rph.css"
 
+SECRET_KEY = get_secret('SECRET_KEY')
+
 # Change this to setup a new logo
 # APP_ICON = '/static/assets/images/superset-logo@2x.png'
 

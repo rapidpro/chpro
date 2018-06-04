@@ -52,6 +52,7 @@ def generate_secret(key=None, value=None):
 
 
 SECRET_LIST = [
+    'SECRET_KEY',
     'MYSQL_PASSWORD',
     'MYSQL_ROOT_PASSWORD',
     'RAPIDPRO_API_KEY',
