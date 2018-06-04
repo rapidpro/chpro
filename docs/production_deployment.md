@@ -1,10 +1,8 @@
-# Production deployment
+# Production deployment (Manual)
 
 ## Introduction
 
 This is a guide for setting up the chpro dashboard on a ubuntu box.
-
-ToDo: This should be automated with fabric.
 
 ## Set up a user (optional)
 
@@ -52,9 +50,26 @@ If you don't know your external ip, you can get it via
 
 ## Secrets
 
-Use the `generate_secrets.sh` script to generate the secrets:
+The following secrets need to be available as files with the same name as the
+secret in ``/run/secrets/`` in the app container for the project to work
 
-`ops/scripts/generate_secrets.sh`
+ * SECRET_KEY
+ * MYSQL_PASSWORD
+ * MYSQL_ROOT_PASSWORD
+ * RAPIDPRO_API_KEY
+ * DOCS_PASSWORD
+ * DOCS_USER
+
+The easiest way to generate the secrets is using the 
+[fabric command](guides/using_the_fabric_shortcuts.html)
+
+### SECRET_KEY
+
+To generate a secert key, you can run:
+
+```
+python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'
+``` 
 
 ## First run
 
@@ -66,12 +81,13 @@ Run the following commands:
 
 ``docker exec -it `docker ps -f name=production_chpro.1 -q` superset init``
 
+``docker exec -it {} chpro setup_permissions``
+
+``docker exec -it {} chpro custom_post_install_fixes``
+
 ## Loading the DBs
 
-ToDo: Create a script for loading DBs
-
-Create a new db.
-
-Load the data:
+To load the data in the for the application you can create a database and 
+then run:
 
 ``docker exec `docker ps -f name=production_db.1 -q` bash -c 'mysql --user=superset --password="$(cat /run/secrets/MYSQL_PASSWORD)" -D zambia_immun' < ~/zambia_immun.sql``

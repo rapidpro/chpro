@@ -147,7 +147,7 @@ def bootstrap():
 def apprun(command):
     print('\n\n--------')
     with settings(output_prefix=False, remote_interrupt=True):
-        open_shell("docker exec -it {container} bash -c '{command}'".format(
+        open_shell("docker exec -it {container} bash -c '{command}'; exit".format(
             command=command,
             container=get_app_container()
         ))

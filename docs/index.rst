@@ -29,7 +29,6 @@ Table of contents
    :caption: Technical Overview
 
    overview/architecture
-   overview/infrastructure
    overview/required_secrets
    overview/setting_up_roles
 
@@ -38,9 +37,6 @@ Table of contents
    :maxdepth: 1
 
    guides/writing_documentation
-   guides/writing_cli_commands
-   guides/interacting_with_docker
-   guides/using_the_fabric_shortcuts
    guides/working_with_styles_theming
 
 .. toctree::
@@ -48,13 +44,8 @@ Table of contents
    :caption: Development and Operations
 
    local_development
+   fabric_deployment
    production_deployment
-
-.. toctree::
-   :maxdepth: 0
-   :caption: Notes
-
-   initial_notes
 
 
 External documentation:
