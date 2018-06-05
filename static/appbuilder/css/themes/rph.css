@@ -1,5 +1,14 @@
+/*
+ * IMPORT
+ * Google Fonts
+ */
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Titillium+Web:400,600,700');
 
+/*
+ * VARIABLES
+ * These are available globally
+ */
 :root {
   --color-pink: #D44673;
   --color-navy: #324955;
@@ -20,6 +29,10 @@
   --weight-bold: 700;
 }
 
+/*
+ * BASE
+ * Global styles, layout styles
+ */
 body {
   background-color: var(--color-background);
   font-family: var(--body-font);
@@ -39,7 +52,9 @@ body {
   opacity: 0.5;
 }
 
-/* LINKS */
+/*
+ * LINKS & BUTTONS
+ */
 body a {
   color: var(--color-secondary);
 }
@@ -52,7 +67,36 @@ td a:hover {
   text-decoration: none;
 }
 
-/* TYPOGRAPHY */
+/* Buttons */
+a.btn-primary,
+input.btn-primary,
+button.btn-primary {
+  border: none;
+  background-color: var(--color-primary);
+}
+
+a.btn-primary:hover,
+input.btn-primary:hover,
+button.btn-primary:hover {
+  background: #C22D5D;
+  color: #F3F3F3;
+}
+
+button.close {
+  color: var(--color-secondary);
+}
+
+button.close:hover {
+  color: #000;
+}
+
+.btn-default {
+  border: 1px solid var(--color-beige);
+}
+
+/*
+ * TYPOGRAPHY
+ */
 h1,
 h2,
 h3,
@@ -61,11 +105,14 @@ h4 {
   font-weight: var(--weight-bold);
 }
 
-/* FORMS */
+/*
+ * FORMS
+ */
 body .help-block {
   color: #494949;
 }
 
+/* Helps reset select2 styles to match other forms */
 .form-control,
 .select2-container .select2-choices .select2-search-field input,
 .select2-container .select2-choice,
@@ -79,6 +126,7 @@ body .help-block {
   border-color: #9FB9B4;
 }
 
+/* Labels on forms */
 .form-group label {
   font-family: 'Titillium Web', Helvetica, sans-serif;
   font-size: 1.2rem;
@@ -92,30 +140,10 @@ body .help-block {
   color: #324955;
 }
 
-.filters {
-  background-color: var(--color-background);
-}
-
-.filters .remove-filter {
-  background: white;
-  text-decoration: none;
-}
-
-.filters .remove-filter .close-icon {
-  margin-right: 10px;
-  opacity: 0.75;
-}
-
-.select2-container .select2-choice {
-  padding: 5px 5px;
-  height: 42px;
-}
-
-.select2-container .select2-choice .select2-arrow {
-  top: 7px;
-}
-
-/* NAVBAR */
+/*
+ * NAVBAR
+ * The header
+ */
 .navbar-brand {
   width: 130px;
 }
@@ -124,19 +152,12 @@ body .help-block {
   width: 100%;
 }
 
-.navbar-nav a {
-  font-family: var(--header-font);
-}
-
-.navbar-nav > li > a {
-  display: flex;
-  align-items: center;
-  font-weight: var(--weight-bold);
-  text-transform: uppercase;
-}
-
 .navbar-inverse {
   border: none;
+}
+
+.navbar-header .navbar-toggle {
+  margin-top: 28px;
 }
 
 .navbar-inverse .navbar-toggle:hover,
@@ -148,12 +169,17 @@ body .help-block {
   background-color: #000;
 }
 
-.navbar-header .navbar-toggle {
-  margin-top: 28px;
-}
-
 .navbar-header .navbar-collapse {
   padding-top: 0;
+}
+
+/* Links in the navbar */
+.navbar-nav > li > a {
+  font-family: var(--header-font);
+  display: flex;
+  align-items: center;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
 }
 
 .navbar-inverse .navbar-nav > .open > a,
@@ -175,11 +201,14 @@ body .help-block {
   vertical-align: middle;
 }
 
-/* DROPDOWNS */
+/*
+ * DROPDOWNS
+ */
 .dropdown-menu {
   border-color: var(--color-gray-light) !important;
 }
 
+/* Links in dropdown */
 .dropdown-menu > li > a {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -217,34 +246,9 @@ body .help-block {
   margin-top: -24px;
 }
 
-/* BUTTONS */
-a.btn-primary,
-input.btn-primary,
-button.btn-primary {
-  border: none;
-  background-color: var(--color-primary);
-}
-
-a.btn-primary:hover,
-input.btn-primary:hover,
-button.btn-primary:hover {
-  background: #C22D5D;
-  color: #F3F3F3;
-}
-
-button.close {
-  color: var(--color-secondary);
-}
-
-button.close:hover {
-  color: #000;
-}
-
-.btn-default {
-  border: 1px solid var(--color-beige);
-}
-
-/* TABS */
+/*
+ * TABS, PANES, PANELS
+ */
 .tab-content > .tab-pane {
   border: 1px solid var(--color-beige);
   border-top: none;
@@ -288,7 +292,7 @@ button.close:hover {
   color: #FFF;
 }
 
-/* PANELS */
+/* Panels */
 .panel {
   margin-bottom: 0;
   box-shadow: none;
@@ -355,20 +359,6 @@ div.widget .chart-header {
   padding: 0;
 }
 
-.panel-group:not(#accordion1) + .well {
-  position: relative;
-  top: 2rem;
-  margin: 0 -1rem -4rem -1rem;
-  box-shadow: none;
-  border: none;
-  background: transparent;
-}
-
-.panel-group + .well .btn-primary {
-  float: right;
-  margin-left: 1rem;
-}
-
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top: none;
 }
@@ -382,8 +372,27 @@ div.widget .chart-header {
   padding: 1rem 0 !important;
 }
 
+.panel-heading + .tab-pane {
+  border: none;
+}
+
+/* Visually making the well appear outside the container */
+.panel-group:not(#accordion1) + .well {
+  position: relative;
+  top: 2rem;
+  margin: 0 -1rem -4rem -1rem;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
 .panel-heading + .nav-tabs + .tab-content .table-responsive + .well {
   margin: 0 -42px -42px -42px;
+}
+
+.panel-group + .well .btn-primary {
+  float: right;
+  margin-left: 1rem;
 }
 
 .panel-heading + .nav-tabs + .tab-content .tab-pane {
@@ -416,6 +425,7 @@ div.widget .chart-header {
   text-align: center;
 }
 
+/* Caret turns upside down when opened/closed */
 .accordion-toggle.collapsed + .caret {
   line-height: 1.5;
   -webkit-transform: rotate(180deg);
@@ -425,8 +435,10 @@ div.widget .chart-header {
   transform: rotate(180deg);
 }
 
-/* TABLES */
-/* Updates the layout table colors/borders */
+/*
+ * TABLES
+ * Updates the layout table colors/borders
+ */
 .table {
   margin-bottom: 0;
 }
@@ -441,6 +453,7 @@ div.widget .chart-header {
   border-color: var(--color-beige);
 }
 
+/* Setting background color for rows */
 table > thead > tr > td.success,
 .table > tbody > tr > td.success,
 .table > tfoot > tr > td.success,
@@ -510,6 +523,7 @@ table > thead > tr > td.success a,
   border-bottom: none;
 }
 
+/* Helper text in tables */
 .table .help-block {
   margin-top: 1.25rem;
   margin-bottom: 0;
@@ -543,6 +557,7 @@ form .table-responsive {
   padding: 0 2rem !important;
 }
 
+/* Visually making the well appear outside the container */
 .table-responsive + .well {
   margin: 1.5rem -1px -1px -1px;
   padding-right: 0;
@@ -558,7 +573,10 @@ form .table-responsive {
   float: right;
 }
 
-/* LISTS w/FILTER */
+/*
+ * LIST
+ * List containers, with filters
+ */
 .list-search-container .btn.dropdown-toggle {
   position: absolute;
   top: -48px;
@@ -621,6 +639,30 @@ form .table-responsive {
   font-size: 1.25rem;
 }
 
+/* Filters */
+.filters {
+  background-color: var(--color-background);
+}
+
+.filters .remove-filter {
+  background: white;
+  text-decoration: none;
+}
+
+.filters .remove-filter .close-icon {
+  margin-right: 10px;
+  opacity: 0.75;
+}
+
+.select2-container .select2-choice {
+  padding: 5px 5px;
+  height: 42px;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  top: 7px;
+}
+
 .list-container .filter-action {
   margin: 0 0 3rem 0;
   padding: 1rem;
@@ -647,7 +689,10 @@ form .table-responsive {
   border: 1px solid var(--color-beige);
 }
 
-/* FANCY ICONS */
+/*
+ * ICONS
+ * "fancy icons"
+ */
 .nav-tabs > li > a .fa,
 .panel-body p > .fa,
 .sql-toolbar .btn .fa,
@@ -659,18 +704,23 @@ form .table-responsive {
   opacity: 0.75;
 }
 
-.table-responsive + .well > button[type=submit] .fa { /* icons on the right */
+/* icons on the right */
+.table-responsive + .well > button[type=submit] .fa {
   margin-right: 0;
   margin-left: 0.5rem;
 }
 
-/* LOGIN */
+/*
+ * LOGIN SCREEN
+ */
 #loginbox .help-block {
   margin-top: 0;
   margin-bottom: 2rem;
 }
 
-/* SQL LAB */
+/*
+ * SQL LAB SCREEN
+ */
 #a11y-query-editor-tabs .nav-tabs .dropdown-toggle.btn .caret {
   margin-top: -26px;
   margin-left: -10px;
@@ -700,17 +750,9 @@ form .table-responsive {
   color: var(--color-secondary);
 }
 
-/* VARIOUS COMPONENTS */
-.reactable-header-sortable::before {
-  top: 12px;
-  color: var(--color-teal);
-}
-
-.react-gravatar.img-rounded {
-  border-radius: 2px !important;
-}
-
-/* DASHBOARD */
+/*
+ * DASHBOARD SCREEN
+ */
 .fave-unfave-icon .fa {
   margin-left: 1rem;
   color: var(--color-primary);
@@ -744,7 +786,9 @@ form .table-responsive {
   margin-left: 1rem;
 }
 
-/* CHARTS */
+/*
+ * CHARTS SCREEN
+ */
 #explore-container,
 .scrollbar-container,
 .scrollbar-content {
@@ -753,19 +797,31 @@ form .table-responsive {
   overflow: visible !important;
 }
 
-/* SHIMS */
-/* Items to address with dev */
+/*
+ * VARIOUS REACT COMPONENTS
+ */
+.reactable-header-sortable::before {
+  top: 12px;
+  color: var(--color-teal);
+}
+
+.react-gravatar.img-rounded {
+  border-radius: 2px !important;
+}
+
+/*
+ * SHIMS
+ */
 body .navbar > .container-fluid > .navbar-brand,
 body .navbar .navbar-collapse .navbar-brand {
   display: none;
 }
 
-.panel-heading + .tab-pane { /* Tab pane even though there's no tab - can we edit this markup? */
-  border: none;
-}
+/*
+ * RESPONSIVE STYLES & BREAKPOINTS
+ */
 
-
-/* Primary Breakpoint */
+/* Tablets and up */
 @media (min-width: 768px) {
   .container {
     padding: 0 10px;
@@ -776,7 +832,7 @@ body .navbar .navbar-collapse .navbar-brand {
   }
 }
 
-/* Tablet to Desktop Breakpoint */
+/* Tablet to Desktop */
 @media (min-width: 768px) and (max-width: 991px) {
   .navbar-inverse .navbar-nav > li > a,
   .dropdown-menu > li > a {
@@ -797,7 +853,7 @@ body .navbar .navbar-collapse .navbar-brand {
   }
 }
 
-/*  Desktop Breakpoint */
+/*  Desktop and up */
 @media (min-width: 992px) {
   .navbar-collapse {
     padding-top: 26px;
