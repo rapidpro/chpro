@@ -31,6 +31,7 @@ services:
        - RAPIDPRO_API_KEY
        - DOCS_USER
        - DOCS_PASSWORD
+       - SECRET_KEY
      deploy:
        replicas: 1
        restart_policy:
@@ -49,4 +50,6 @@ secrets:
   DOCS_USER:
     external: true
   DOCS_PASSWORD:
+    external: true
+  SECRET_KEY:
     external: true

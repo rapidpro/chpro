@@ -26,3 +26,7 @@ executed in it.
 
    It is the responsibility of the administrator creating the DB to ensure
    the safety of the SQL script.
+
+.. raw:: html
+
+   <video controls width="640" src="/docs/_static/videos/LoadSQL.mov"></video>

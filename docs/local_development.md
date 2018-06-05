@@ -18,6 +18,21 @@ with ipdb), you can use:
 
 `docker build -t chpro -f ops/containers/app/Dockerfile . --build-arg PIPENV_ARGS="--dev"`
 
+## Generating the secrets
+
+Locally, the secrets will be represented by files located under 
+
+`ops/secrets/`
+
+A sample of those secrets is provided in `ops/secrets.sample` and the
+easiest way to use them is to copy or link them:
+
+`cp -R ops/secrets.sample ops/secrets`
+
+or 
+
+`ln ops/secrets.sample ops/secrets`
+
 ## Running
 
 The simplest way to run the application locally is using docker compose:

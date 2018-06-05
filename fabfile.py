@@ -52,6 +52,7 @@ def generate_secret(key=None, value=None):
 
 
 SECRET_LIST = [
+    'SECRET_KEY',
     'MYSQL_PASSWORD',
     'MYSQL_ROOT_PASSWORD',
     'RAPIDPRO_API_KEY',
@@ -146,7 +147,7 @@ def bootstrap():
 def apprun(command):
     print('\n\n--------')
     with settings(output_prefix=False, remote_interrupt=True):
-        open_shell("docker exec -it {container} bash -c '{command}'".format(
+        open_shell("docker exec -it {container} bash -c '{command}'; exit".format(
             command=command,
             container=get_app_container()
         ))
